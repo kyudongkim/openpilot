@@ -63,7 +63,7 @@ ALERTS = [
       "비상등이나 방향지시등 동작시에는 핸들조향 꺼짐",
       "",
       AlertStatus.userPrompt, AlertSize.small,
-      Priority.HIGH, VisualAlert.none, AudibleAlert.none, 0., 0., .1),
+      Priority.MID, VisualAlert.none, AudibleAlert.none, 0., 0., .1),
   Alert(
       "lkasButtonOff",
       "LKAS 버튼 꺼짐",
@@ -105,7 +105,7 @@ ALERTS = [
       "핸들을 조작하세요",
       "핸들조향 제한을 초과함",
       AlertStatus.userPrompt, AlertSize.mid,
-      Priority.LOW, VisualAlert.steerRequired, AudibleAlert.chimeWarning1, 1., 2., 3.),
+      Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., 2., 3.),
 
   Alert(
       "steerTempUnavailable",
@@ -126,7 +126,7 @@ ALERTS = [
       "도로를 주시하세요 : 사용자 도로주시 불안",
       "",
       AlertStatus.normal, AlertSize.small,
-      Priority.LOW, VisualAlert.steerRequired, AudibleAlert.none, .0, .1, .1, alert_rate=1),
+      Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=1),
 
   Alert(
       "promptDriverDistracted",
@@ -182,28 +182,28 @@ ALERTS = [
       "오픈파일럿 사용준비 완료",
       "항상 핸들을 잡고 도로를 주시하세요",
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., 10.),
+      Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., 5.),
 
   Alert(
       "startupMaster",
-      "WARNING: This branch is not tested",
-      "Always keep hands on wheel and eyes on road",
+      "경고: 이 브랜치는 테스트되자않았습니다",
+      "항상 핸들을 잡고 도로를 주시하세요",
       AlertStatus.userPrompt, AlertSize.mid,
-      Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
+      Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., 5.),
 
   Alert(
       "startupNoControl",
       "대시캠 모드",
       "항상 핸들을 잡고 도로를 주시하세요",
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., 10.),
+      Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
 
   Alert(
       "startupNoCar",
       "대시캠 모드 : 호환되지않는 차량",
       "항상 핸들을 잡고 도로를 주시하세요",
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., 10.),
+      Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
 
   Alert(
       "ethicalDilemma",
@@ -237,8 +237,8 @@ ALERTS = [
       "belowSteerSpeed",
       "핸들을 조작하세요",
       "사용할수없는 자동조향 : 속도 ",
-      AlertStatus.userPrompt, AlertSize.mid,
-      Priority.MID, VisualAlert.steerRequired, AudibleAlert.none, 0., 0.4, .3),
+      AlertStatus.userPrompt, AlertSize.small,
+      Priority.MID, VisualAlert.none, AudibleAlert.none, 0., 0.4, .3),
 
   Alert(
       "debugAlert",
@@ -251,42 +251,42 @@ ALERTS = [
       "좌측으로 핸들조향 , 차선변경 시작",
       "좌측차선의 차량을 확인하세요",
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOW, VisualAlert.steerRequired, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
+      Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
 
   Alert(
       "preLaneChangeRight",
       "우측으로 핸들조향 , 차선변경 시작",
       "우측차선의 차량을 확인하세요",
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOW, VisualAlert.steerRequired, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
+      Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
 
   Alert(
       "laneChange",
       "차선을 변경합니다",
       "차선의 차량을 확인하세요",
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOW, VisualAlert.steerRequired, AudibleAlert.none, .0, .1, .1),
+      Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1),
   
     Alert(
       "rightLCAbsm",
       "우측차선 차량감지",
       "우측차선에 차량이 감지되니 대기하세요",
       AlertStatus.userPrompt, AlertSize.mid,
-      Priority.MID, VisualAlert.steerRequired, AudibleAlert.none, 0., 0.4, .3),
+      Priority.MID, VisualAlert.none, AudibleAlert.none, 0., 0.4, .3),
   
   Alert(
       "leftLCAbsm",
       "좌측차선 차량감지",
       "좌측차선에 차량이 감지되니 대기하세요",
       AlertStatus.userPrompt, AlertSize.mid,
-      Priority.MID, VisualAlert.steerRequired, AudibleAlert.none, 0., 0.4, .3),
+      Priority.MID, VisualAlert.none, AudibleAlert.none, 0., 0.4, .3),
   
   Alert(
       "preventLCA",
       "핸들을 조작하세요",
       "차선변경 취소 , 차선이 안전하지않습니다",
       AlertStatus.critical, AlertSize.full,
-      Priority.HIGH, VisualAlert.none, AudibleAlert.chimeWarningRepeat, .4, 3., 3.,),
+      Priority.HIGH, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .4, 3., 3.,),
 
 
   Alert(
@@ -522,7 +522,7 @@ ALERTS = [
       "핸들을 즉시 조작하세요",
       "기어 [R] 상태",
       AlertStatus.critical, AlertSize.full,
-      Priority.HIGHEST, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, 2.2, 3., 4.),
+      Priority.HIGHEST, VisualAlert.none, AudibleAlert.none, 2.2, 3., 4.),
 
   Alert(
       "cruiseDisabled",
@@ -798,7 +798,7 @@ ALERTS = [
       "대시캠 모드",
       "차량 인식 불가",
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
+      Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., 10.),
 
   Alert(
       "vehicleModelInvalid",
