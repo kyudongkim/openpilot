@@ -186,7 +186,7 @@ ALERTS = [
 
   Alert(
       "startupMaster",
-      "경고: 이 브랜치는 테스트되자않았습니다",
+      "이 브랜치는 테스트되지않았습니다",
       "항상 핸들을 잡고 도로를 주시하세요",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., 5.),
@@ -248,14 +248,14 @@ ALERTS = [
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .1, .1, .1),
   Alert(
       "preLaneChangeLeft",
-      "좌측으로 핸들조향 , 차선변경 시작",
+      "자동 차선변경 시작",
       "좌측차선의 차량을 확인하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
 
   Alert(
       "preLaneChangeRight",
-      "우측으로 핸들조향 , 차선변경 시작",
+      "자동 차선변경 시작",
       "우측차선의 차량을 확인하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
@@ -287,7 +287,6 @@ ALERTS = [
       "차선변경 취소 , 차선이 안전하지않습니다",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGH, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .4, 3., 3.,),
-
 
   Alert(
       "posenetInvalid",
@@ -465,7 +464,6 @@ ALERTS = [
       "레이더 에러 : 차량을 다시 시작하세요",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
-
 
   Alert(
       "lowMemory",
