@@ -322,18 +322,18 @@ class CarInterface(CarInterfaceBase):
     self.lkas_button_alert = True if not self.CC.lkas_button else False
 
     events = []
-#    if not ret.gearShifter == GearShifter.drive:
-#      events.append(create_event('wrongGear', [ET.NO_ENTRY, ET.SOFT_DISABLE]))
+    if not ret.gearShifter == GearShifter.drive:
+      events.append(create_event('wrongGear', [ET.NO_ENTRY, ET.USER_DISABLE]))
     if ret.doorOpen:
       events.append(create_event('doorOpen', [ET.NO_ENTRY, ET.SOFT_DISABLE]))
-#    if ret.seatbeltUnlatched:
-#      events.append(create_event('seatbeltNotLatched', [ET.NO_ENTRY, ET.SOFT_DISABLE]))
+   #if ret.seatbeltUnlatched:
+   #  events.append(create_event('seatbeltNotLatched', [ET.NO_ENTRY, ET.SOFT_DISABLE]))
     if self.CS.esp_disabled:
       events.append(create_event('espDisabled', [ET.NO_ENTRY, ET.SOFT_DISABLE]))
     if not self.CS.main_on:
       events.append(create_event('wrongCarMode', [ET.NO_ENTRY, ET.USER_DISABLE]))
     if ret.gearShifter == GearShifter.reverse:
-      events.append(create_event('reverseGear', [ET.NO_ENTRY, ET.IMMEDIATE_DISABLE]))
+      events.append(create_event('reverseGear', [ET.NO_ENTRY, ET.USER_DISABLE]))
     if self.CS.steer_error:
       events.append(create_event('steerTempUnavailable', [ET.NO_ENTRY, ET.WARNING]))
 
@@ -358,6 +358,8 @@ class CarInterface(CarInterfaceBase):
 
     if self.lkas_button_alert:
       events.append(create_event('lkasButtonOff', [ET.WARNING]))
+    
+    # TODO: Varible for min Speed for LCA
     if ret.rightBlinker and ret.lcaRight and self.CS.v_ego > (35 * CV.MPH_TO_MS):
       events.append(create_event('rightLCAbsm', [ET.WARNING]))
     if ret.leftBlinker and ret.lcaLeft and self.CS.v_ego > (35 * CV.MPH_TO_MS):
