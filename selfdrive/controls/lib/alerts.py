@@ -60,7 +60,7 @@ class Alert():
 ALERTS = [
   Alert(
       "turningIndicatorOn",
-      "비상등이나 방향지시등 동작시에는 핸들조향 꺼짐",
+      "방향지시등 동작시에는 핸들조향 꺼짐",
       "",
       AlertStatus.userPrompt, AlertSize.small,
       Priority.MID, VisualAlert.none, AudibleAlert.none, 0., 0., .1),
@@ -248,14 +248,14 @@ ALERTS = [
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .1, .1, .1),
   Alert(
       "preLaneChangeLeft",
-      "자동 차선변경 시작",
+      "자동 차선변경",
       "좌측차선의 차량을 확인하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
 
   Alert(
       "preLaneChangeRight",
-      "자동 차선변경 시작",
+      "자동 차선변경",
       "우측차선의 차량을 확인하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
