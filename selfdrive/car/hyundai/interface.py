@@ -54,6 +54,8 @@ class CarInterface(CarInterfaceBase):
     tire_stiffness_factor = 0.7
 
     ret.minEnableSpeed = -1.   # enable is done by stock ACC, so ignore this
+    #ret.minSteerSpeed = 0.
+    #ret.minSteerSpeed = 60 * CV.KPH_TO_MS
 
     if candidate == CAR.GENESIS:
       ret.lateralTuning.pid.kf = 0.00005
@@ -61,8 +63,7 @@ class CarInterface(CarInterfaceBase):
       ret.wheelbase = 3.01
       ret.steerRatio = 16.5
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
-      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.16], [0.01]]
-      ret.minSteerSpeed = 60 * CV.KPH_TO_MS
+      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.16], [0.01]]           
     elif candidate in [CAR.GENESIS_G90, CAR.GENESIS_G80]:
       ret.mass = 2200. + STD_CARGO_KG
       ret.wheelbase = 3.15
@@ -77,7 +78,6 @@ class CarInterface(CarInterfaceBase):
       tire_stiffness_factor = 0.385
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
-      ret.minSteerSpeed = 32 * CV.MPH_TO_MS
     elif candidate in CAR.SONATA:
       ret.lateralTuning.pid.kf = 0.00005
       ret.mass = 1640. + STD_CARGO_KG
@@ -92,8 +92,7 @@ class CarInterface(CarInterfaceBase):
       ret.wheelbase = 2.78
       ret.steerRatio = 14.4
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
-      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
-      ret.minSteerSpeed = 0.      
+      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]      
     elif candidate in CAR.SANTA_FE:
       ret.lateralTuning.pid.kf = 0.00005
       ret.mass = 1870. + STD_CARGO_KG
@@ -101,8 +100,7 @@ class CarInterface(CarInterfaceBase):
       ret.steerRatio = 16.55  # 13.8 is spec end-to-end
       tire_stiffness_factor = 0.82
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[9., 22.], [9., 22.]]
-      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.2, 0.35], [0.05, 0.09]]
-      ret.minSteerSpeed = 0.
+      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.2, 0.35], [0.05, 0.09]]      
     elif candidate == CAR.IONIQ:
       ret.lateralTuning.pid.kf = 0.00006
       ret.mass = 1275. + STD_CARGO_KG
@@ -118,8 +116,7 @@ class CarInterface(CarInterfaceBase):
       ret.steerRatio = 13.73
       tire_stiffness_factor = 0.385
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
-      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
-      ret.minSteerSpeed = 32 * CV.MPH_TO_MS
+      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]      
     elif candidate == CAR.KONA:
       ret.lateralTuning.pid.kf = 0.00006
       ret.mass = 1275. + STD_CARGO_KG
@@ -132,7 +129,7 @@ class CarInterface(CarInterfaceBase):
       ret.lateralTuning.pid.kf = 0.00006
       ret.mass = 1685. + STD_CARGO_KG
       ret.wheelbase = 2.7
-      ret.steerRatio = 13.73   #Spec
+      ret.steerRatio = 13.73   
       tire_stiffness_factor = 0.385
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
@@ -159,7 +156,6 @@ class CarInterface(CarInterfaceBase):
       ret.steerRatio = 14.4 * 1.1   # 10% higher at the center seems reasonable
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
-      ret.minSteerSpeed = 0.
     elif candidate == CAR.KIA_STINGER:
       ret.lateralTuning.pid.kf = 0.00005
       ret.mass = 1825. + STD_CARGO_KG
@@ -167,7 +163,6 @@ class CarInterface(CarInterfaceBase):
       ret.steerRatio = 14.4 * 1.15   # 15% higher at the center seems reasonable
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
-      ret.minSteerSpeed = 0.
     elif candidate == CAR.KIA_SELTOS:
       ret.lateralTuning.pid.kf = 0.00006
       ret.mass = 1444. + STD_CARGO_KG
