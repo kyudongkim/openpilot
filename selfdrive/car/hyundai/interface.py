@@ -141,6 +141,14 @@ class CarInterface(CarInterfaceBase):
       tire_stiffness_factor = 0.5
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]      
+    elif candidate in [CAR.KIA_CARDENZA, CAR.KIA_CARDENZA_H]:
+      ret.lateralTuning.pid.kf = 0.00005
+      ret.mass = 1575. + STD_CARGO_KG
+      ret.wheelbase = 2.85
+      ret.steerRatio = 13.75
+      tire_stiffness_factor = 0.5
+      ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
+      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]      
     elif candidate == CAR.KIA_FORTE:
       ret.lateralTuning.pid.kf = 0.00005
       ret.mass = 1613. + STD_CARGO_KG
@@ -355,9 +363,9 @@ class CarInterface(CarInterfaceBase):
       events.append(create_event('lkasButtonOff', [ET.WARNING]))
     
     # TODO: Varible for min Speed for LCA
-    if ret.rightBlinker and ret.lcaRight and self.CS.v_ego > (60 * CV.KPH_TO_MS):
+    if ret.rightBlinker and ret.lcaRight and self.CS.v_ego > (55 * CV.KPH_TO_MS):
       events.append(create_event('rightLCAbsm', [ET.WARNING]))
-    if ret.leftBlinker and ret.lcaLeft and self.CS.v_ego > (60 * CV.KPH_TO_MS):
+    if ret.leftBlinker and ret.lcaLeft and self.CS.v_ego > (55 * CV.KPH_TO_MS):
       events.append(create_event('leftLCAbsm', [ET.WARNING]))
 
     ret.events = events
