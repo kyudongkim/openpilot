@@ -133,7 +133,7 @@ class CarInterface(CarInterfaceBase):
       tire_stiffness_factor = 0.385
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
-    elif candidate in [CAR.KIA_OPTIMA, CAR.KIA_OPTIMA_H]:
+    elif candidate in [CAR.KIA_OPTIMA, CAR.KIA_OPTIMA_HEV]:
       ret.lateralTuning.pid.kf = 0.00005
       ret.mass = 1525. + STD_CARGO_KG
       ret.wheelbase = 2.80
@@ -141,7 +141,7 @@ class CarInterface(CarInterfaceBase):
       tire_stiffness_factor = 0.5
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]      
-    elif candidate in [CAR.KIA_CARDENZA, CAR.KIA_CARDENZA_H]:
+    elif candidate in [CAR.KIA_CARDENZA, CAR.KIA_CARDENZA_HEV]:
       ret.lateralTuning.pid.kf = 0.00005
       ret.mass = 1575. + STD_CARGO_KG
       ret.wheelbase = 2.85
