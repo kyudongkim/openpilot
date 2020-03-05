@@ -74,7 +74,7 @@ ALERTS = [
   # Miscellaneous alerts
   Alert(
       "enable",
-      "Engage",
+      "활성화",
       "",
       AlertStatus.normal, AlertSize.none,
       Priority.MID, VisualAlert.none, AudibleAlert.chimeEngage, .2, 0., 0.),
@@ -172,8 +172,8 @@ ALERTS = [
 
   Alert(
       "geofence",
-      "해제가 필요합니다",
-      "지오펜스 영역 아님",
+      "오픈파일럿을 해제하세요",
+      "지오펜스 영역이 아닙니다",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.HIGH, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, .1, .1),
 
@@ -186,7 +186,7 @@ ALERTS = [
 
   Alert(
       "startupMaster",
-      "이 브랜치는 테스트되지않았습니다",
+      "테스트되지않은 브랜치",
       "항상 핸들을 잡고 도로를 주시하세요",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., 5.),
@@ -248,14 +248,14 @@ ALERTS = [
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .1, .1, .1),
   Alert(
       "preLaneChangeLeft",
-      "자동 차선변경",
+      "자동차선변경",
       "좌측차선의 차량을 확인하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
 
   Alert(
       "preLaneChangeRight",
-      "자동 차선변경",
+      "자동차선변경",
       "우측차선의 차량을 확인하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
@@ -540,7 +540,7 @@ ALERTS = [
   Alert(
       "noTarget",
       "오픈파일럿 취소됨",
-      "근접 앞차량이 없음",
+      "근접 앞차량이 없습니다",
       AlertStatus.normal, AlertSize.mid,
       Priority.HIGH, VisualAlert.none, AudibleAlert.chimeDisengage, .4, 2., 3.),
 
@@ -604,7 +604,7 @@ ALERTS = [
   Alert(
       "geofenceNoEntry",
       "오픈파일럿 사용불가",
-      "지오펜스 영역 아님",
+      "지오펜스 영역아 아",
       AlertStatus.normal, AlertSize.mid,
       Priority.MID, VisualAlert.none, AudibleAlert.chimeError, .4, 2., 3.),
 
@@ -681,7 +681,7 @@ ALERTS = [
   Alert(
       "noTargetNoEntry",
       "오픈파일럿 사용불가",
-      "근접 앞차량이 없음",
+      "근접 앞차량이 없습니다",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.chimeError, .4, 2., 3.),
 
