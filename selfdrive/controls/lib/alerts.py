@@ -81,7 +81,7 @@ ALERTS = [
 
   Alert(
       "disable",
-      "Disengage",
+      "비활성화",
       "",
       AlertStatus.normal, AlertSize.none,
       Priority.MID, VisualAlert.none, AudibleAlert.chimeDisengage, .2, 0., 0.),
