@@ -604,7 +604,7 @@ ALERTS = [
   Alert(
       "geofenceNoEntry",
       "오픈파일럿 사용불가",
-      "지오펜스 영역아 아",
+      "지오펜스 영역이 아닙니다",
       AlertStatus.normal, AlertSize.mid,
       Priority.MID, VisualAlert.none, AudibleAlert.chimeError, .4, 2., 3.),
 
