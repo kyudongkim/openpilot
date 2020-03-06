@@ -24,7 +24,8 @@ class CAR:
   KIA_SORENTO = "KIA SORENTO 2018"
   KIA_STINGER = "KIA STINGER 2018"
   KIA_SELTOS = "KIA SELTOS 2019"
-  KIA_NIRO_EV = "KIA NIRO 2016"
+  KIA_NIRO_EV = "KIA NIRO EV 2016"
+  KIA_SOUL_EV = "KIA SOUL EV 2020"
 
 class Buttons:
   NONE = 0
@@ -142,6 +143,8 @@ FINGERPRINTS = {
   }],
   CAR.KIA_NIRO_EV: [{
   }],
+  CAR.KIA_SOUL_EV: [{
+  }],
 }
 
 ECU_FINGERPRINT = {
@@ -159,7 +162,7 @@ FEATURES = {
  # Use TCU Message for Gear Selection
   "use_tcu_gears": [CAR.KIA_OPTIMA, CAR.SONATA, CAR.KIA_CARDENZA],
  # Use elect Message for Gear Selection
-  "use_elect_gears": [CAR.KIA_OPTIMA_HEV, CAR.IONIQ_EV, CAR.KONA_EV, CAR.KIA_NIRO_EV, CAR.GRANDEUR_HEV, CAR.KIA_CARDENZA_HEV],
+  "use_elect_gears": [CAR.KIA_OPTIMA_HEV, CAR.IONIQ_EV, CAR.KONA_EV, CAR.KIA_NIRO_EV, CAR.GRANDEUR_HEV, CAR.KIA_CARDENZA_HEV, CAR.KIA_SOUL_EV],
 }
 
 DBC = {
@@ -185,6 +188,7 @@ DBC = {
   CAR.KIA_STINGER: dbc_dict('hyundai_kia_generic', None),
   CAR.KIA_SELTOS: dbc_dict('hyundai_kia_generic', None),
   CAR.KIA_NIRO_EV: dbc_dict('hyundai_kia_generic', None),
+  CAR.KIA_SOUL_EV: dbc_dict('hyundai_kia_generic', None),
 }
 
 STEER_THRESHOLD = 150
