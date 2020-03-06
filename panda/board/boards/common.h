@@ -82,4 +82,3 @@ bool detect_with_pull(GPIO_TypeDef *GPIO, int pin, int mode) {
   set_gpio_pullup(GPIO, pin, PULL_NONE);
   return ret;
 }
-
