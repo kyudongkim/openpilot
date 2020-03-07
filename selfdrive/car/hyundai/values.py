@@ -9,13 +9,14 @@ class CAR:
   ELANTRA = "HYUNDAI ELANTRA LIMITED ULTIMATE 2017"
   ELANTRA_GT_I30 = "HYUNDAI I30 N LINE 2019 & GT 2018 DCT"
   SONATA = "HYUNDAI SONATA 2018"
+  SONATA_HEV = "HYUNDAI SONATA HEV 2019"
   GRANDEUR = "HYUNDAI GRANDEUR IG 2017"
   GRANDEUR_HEV = "HYUNDAI GRANDEUR IG HEV 2019"
   SANTA_FE = "HYUNDAI SANTA FE 2019"
   IONIQ = "HYUNDAI IONIQ HEV 2017"
   IONIQ_EV = "HYUNDAI IONIQ EV 2019"
   KONA = "HYUNDAI KONA 2019"
-  KONA_EV = "HYUNDAI KONA EV 2019"
+  KONA_EV = "HYUNDAI KONA EV & NIRO EV"
   KIA_OPTIMA = "KIA OPTIMA SX 2016-2019"
   KIA_OPTIMA_HEV = "KIA OPTIMA HEV 2016-2019"
   KIA_CARDENZA = "KIA CARDENZA 2016-2019"
@@ -23,8 +24,7 @@ class CAR:
   KIA_FORTE = "KIA FORTE 2018"
   KIA_SORENTO = "KIA SORENTO 2018"
   KIA_STINGER = "KIA STINGER 2018"
-  KIA_SELTOS = "KIA SELTOS 2019"
-  KIA_NIRO_EV = "KIA NIRO EV 2016"
+  KIA_SELTOS = "KIA SELTOS 2019"  
   KIA_SOUL_EV = "KIA SOUL EV 2020"
 
 class Buttons:
@@ -78,6 +78,8 @@ FINGERPRINTS = {
   }],  
   CAR.SONATA: [{
     64: 8, 66: 8, 67: 8, 68: 8, 127: 8, 273: 8, 274: 8, 275: 8, 339: 8, 356: 4, 399: 8, 512: 6, 544: 8, 593: 8, 608: 8, 625: 8, 688: 5, 790: 8, 809: 8, 832: 8, 897: 8, 899: 8, 902: 8, 903: 6, 916: 8, 1040: 8, 1056: 8, 1057: 8, 1078: 4, 1151: 6, 1168: 7, 1170: 8, 1265: 4, 1280: 1, 1282: 4, 1287: 4, 1290: 8, 1292: 8, 1294: 8, 1312: 8, 1314: 8, 1322: 8, 1331: 8, 1332: 8, 1333: 8, 1342: 6, 1345: 8, 1348: 8, 1349: 8, 1351: 8, 1353: 8, 1363: 8, 1366: 8, 1367: 8, 1369: 8, 1371: 8, 1407: 8, 1415: 8, 1419: 8, 1425: 2, 1427: 6, 1440: 8, 1456: 4, 1460: 8, 1470: 8, 1472: 8, 1491: 8, 1530: 8
+  }],
+  CAR.SONATA_HEV: [{
   }],
   CAR.GRANDEUR: [{
     67: 8, 68: 8, 127: 8, 304: 8, 320: 8, 339: 8, 356: 4, 544: 8, 593: 8, 608: 8, 688: 5, 809: 8, 854 : 7, 870: 7, 871: 8, 872: 8, 897: 8, 902: 8, 916: 8, 1040: 8, 1042: 8, 1056: 8, 1057: 8, 1078: 4, 1136: 8 , 1151: 6, 1162: 4, 1168: 7, 1170: 8, 1173: 8, 1185: 8, 1265: 4, 1280: 1, 1287: 4, 1290: 8, 1292: 8, 1294: 8, 1312 : 8, 1322: 8, 1345: 8, 1348: 8, 1363: 8, 1369: 8, 1371: 8, 1378: 4, 1384: 8, 1407: 8, 1419: 8, 1425: 2, 1427: 6 , 1456: 4, 1470: 8
@@ -141,8 +143,6 @@ FINGERPRINTS = {
   }],
   CAR.KIA_SELTOS: [{
   }],
-  CAR.KIA_NIRO_EV: [{
-  }],
   CAR.KIA_SOUL_EV: [{
     127: 8, 304: 8, 320: 8, 339: 8, 352: 8, 356: 4, 544: 8, 549: 8, 593: 8, 688: 6, 832: 8, 881: 8, 882: 8, 897: 8, 902: 8, 903: 8, 905: 8, 909: 8, 913: 8, 916: 8, 1040: 8, 1042: 8, 1056: 8, 1057: 8, 1078: 4, 1136: 8, 1151: 6, 1155: 8, 1156: 8, 1157: 4, 1162: 8, 1164: 8, 1168: 7, 1173: 8, 1186: 2, 1191: 2, 1193: 8, 1225: 8, 1227: 8, 1265: 4, 1280: 1, 1287: 4, 1290: 8, 1291: 8, 1292: 8, 1294: 8, 1312: 8, 1322: 8, 1342: 6, 1345: 8, 1348: 8, 1355: 8, 1363: 8, 1369: 8, 1378: 8, 1379: 8, 1407: 8, 1419: 8, 1426: 8, 1427: 6, 1429: 8, 1430: 8, 1456: 4, 1470: 8, 1473: 8, 1507: 8, 1535: 8, 1988: 8, 1996: 8, 2000: 8, 2004: 8, 2008: 8, 2012: 8
   }],
@@ -163,7 +163,7 @@ FEATURES = {
  # Use TCU Message for Gear Selection
   "use_tcu_gears": [CAR.KIA_OPTIMA, CAR.SONATA, CAR.KIA_CARDENZA],
  # Use elect Message for Gear Selection
-  "use_elect_gears": [CAR.KIA_OPTIMA_HEV, CAR.IONIQ_EV, CAR.KONA_EV, CAR.KIA_NIRO_EV, CAR.GRANDEUR_HEV, CAR.KIA_CARDENZA_HEV, CAR.KIA_SOUL_EV],
+  "use_elect_gears": [CAR.KIA_OPTIMA_HEV, CAR.IONIQ_EV, CAR.KONA_EV, CAR.SONATA_HEV, CAR.GRANDEUR_HEV, CAR.KIA_CARDENZA_HEV, CAR.KIA_SOUL_EV],
 }
 
 DBC = {
@@ -173,6 +173,7 @@ DBC = {
   CAR.ELANTRA: dbc_dict('hyundai_kia_generic', None),
   CAR.ELANTRA_GT_I30: dbc_dict('hyundai_kia_generic', None),
   CAR.SONATA: dbc_dict('hyundai_kia_generic', None),
+  CAR.SONATA_HEV: dbc_dict('hyundai_kia_generic', None),
   CAR.GRANDEUR: dbc_dict('hyundai_kia_generic', None),
   CAR.GRANDEUR_HEV: dbc_dict('hyundai_kia_generic', None),
   CAR.SANTA_FE: dbc_dict('hyundai_kia_generic', None),
@@ -188,7 +189,6 @@ DBC = {
   CAR.KIA_SORENTO: dbc_dict('hyundai_kia_generic', None),
   CAR.KIA_STINGER: dbc_dict('hyundai_kia_generic', None),
   CAR.KIA_SELTOS: dbc_dict('hyundai_kia_generic', None),
-  CAR.KIA_NIRO_EV: dbc_dict('hyundai_kia_generic', None),
   CAR.KIA_SOUL_EV: dbc_dict('hyundai_kia_generic', None),
 }
 
