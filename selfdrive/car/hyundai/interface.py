@@ -78,7 +78,7 @@ class CarInterface(CarInterfaceBase):
       tire_stiffness_factor = 0.385
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
-    elif candidate in CAR.SONATA:
+    elif candidate in [CAR.SONATA, CAR.SONATA_HEV]:
       ret.lateralTuning.pid.kf = 0.00005
       ret.mass = 1640. + STD_CARGO_KG
       ret.wheelbase = 2.80
@@ -86,14 +86,14 @@ class CarInterface(CarInterfaceBase):
       tire_stiffness_factor = 0.5
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
-    elif candidate == [CAR.GRANDEUR, CAR.GRANDEUR_HEV]:
+    elif candidate in [CAR.GRANDEUR, CAR.GRANDEUR_HEV]:
       ret.lateralTuning.pid.kf = 0.00005
-      ret.mass = 1985. + STD_CARGO_KG
-      ret.wheelbase = 2.78
+      ret.mass = 1719. + STD_CARGO_KG
+      ret.wheelbase = 2.8
       ret.steerRatio = 14.4
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
-      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]      
-    elif candidate in CAR.SANTA_FE:
+      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
+    elif candidate == CAR.SANTA_FE:
       ret.lateralTuning.pid.kf = 0.00005
       ret.mass = 1870. + STD_CARGO_KG
       ret.wheelbase = 2.7
@@ -125,7 +125,7 @@ class CarInterface(CarInterfaceBase):
       tire_stiffness_factor = 0.385
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
-    elif candidate == CAR.KONA_EV:
+    elif candidate in [CAR.KONA_EV, CAR.KIA_NIRO_EV]:
       ret.lateralTuning.pid.kf = 0.00006
       ret.mass = 1685. + STD_CARGO_KG
       ret.wheelbase = 2.7
@@ -179,14 +179,6 @@ class CarInterface(CarInterfaceBase):
       tire_stiffness_factor = 0.385
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
-    elif candidate == CAR.KIA_NIRO_EV:
-      ret.lateralTuning.pid.kf = 0.00006
-      ret.mass = 1748. + STD_CARGO_KG
-      ret.wheelbase = 2.7
-      ret.steerRatio = 13.73
-      tire_stiffness_factor = 0.385
-      ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
-      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
     elif candidate == CAR.KIA_SOUL_EV:
       ret.lateralTuning.pid.kf = 0.00006
       ret.mass = 1682. + STD_CARGO_KG
@@ -213,7 +205,6 @@ class CarInterface(CarInterfaceBase):
     # mass and CG position, so all cars will have approximately similar dyn behaviors
     ret.tireStiffnessFront, ret.tireStiffnessRear = scale_tire_stiffness(ret.mass, ret.wheelbase, ret.centerToFront,
                                                                          tire_stiffness_factor=tire_stiffness_factor)
-
 
     # no rear steering, at least on the listed cars above
     ret.steerRatioRear = 0.
