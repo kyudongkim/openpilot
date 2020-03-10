@@ -208,7 +208,6 @@ static void update_all_track_data(UIState *s) {
   }
 }
 
-
 static void ui_draw_track(UIState *s, bool is_mpc, track_vertices_data *pvd) {
 const UIScene *scene = &s->scene;
   const PathData path = scene->model.path;
@@ -612,7 +611,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
   //add visual radar relative distance
   if (true) {
     char val_str[16];
-    char uom_str[6];
+    char uom_str[5];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     if (scene->lead_status) {
       //show RED if less than 5 meters
@@ -629,7 +628,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
        snprintf(val_str, sizeof(val_str), "-");
     }
     snprintf(uom_str, sizeof(uom_str), "m   ");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "앞차와거리차",
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "앞차 거리차",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
@@ -639,7 +638,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
   //add visual radar relative speed
   if (true) {
     char val_str[16];
-    char uom_str[6];
+    char uom_str[5];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     if (scene->lead_status) {
       //show Orange if negative speed (approaching)
@@ -664,7 +663,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     } else {
       snprintf(uom_str, sizeof(uom_str), "mph");
     }
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "앞차와속도차",
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "앞차 속도차",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
@@ -674,7 +673,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
   //add  steering angle
   if (true) {
     char val_str[16];
-    char uom_str[6];
+    char uom_str[5];
     NVGcolor val_color = nvgRGBA(0, 255, 0, 200);
       //show Orange if more than 30 degrees
       //show red if  more than 50 degrees
@@ -698,7 +697,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
   //add  desired steering angle
   if (true) {
     char val_str[16];
-    char uom_str[6];
+    char uom_str[5];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     if (scene->engaged) {
       //show Orange if more than 6 degrees
@@ -721,7 +720,6 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
-
 
   //finally draw the frame
   bb_h += 20;
@@ -1096,7 +1094,6 @@ static void ui_draw_vision_face(UIState *s) {
   nvgFillPaint(s->vg, face_img);
   nvgFill(s->vg);
 }
-
 
 static void ui_draw_vision_brake(UIState *s) {
   const UIScene *scene = &s->scene;
