@@ -810,7 +810,7 @@ static void ui_draw_vision_maxspeed(UIState *s) {
   nvgStrokeWidth(s->vg, 10);
   nvgStroke(s->vg);
 
-  // Draw "MAX" Text
+  // Draw "CRUISE" Text
   nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
   nvgFontFace(s->vg, "sans-regular");
   nvgFontSize(s->vg, 20*2.5);
@@ -1098,7 +1098,7 @@ static void ui_draw_vision_face(UIState *s) {
 static void ui_draw_vision_brake(UIState *s) {
   const UIScene *scene = &s->scene;
   const int brake_size = 96;
-  const int brake_x = (scene->ui_viz_rx + (brake_size * 5) + (bdr_is * 4));
+  const int brake_x = (scene->ui_viz_rx + (brake_size * 5) + (bdr_is * 2));
   const int brake_y = (footer_y + ((footer_h - brake_size) / 2));
   const int brake_img_size = (brake_size * 1.5);
   const int brake_img_x = (brake_x - (brake_img_size / 2));
