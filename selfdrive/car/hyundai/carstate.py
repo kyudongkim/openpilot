@@ -476,3 +476,6 @@ class CarState():
     self.clu11 = cp.vl["CLU11"]
     self.scc12 = cp_scc.vl["SCC12"]
     self.mdps12 = cp_mdps.vl["MDPS12"]
+
+    # enginerpm
+    self.engineRPM = cp.vl["TCU_DCT13"]['Cluster_Engine_RPM']
