@@ -295,6 +295,8 @@ class CarInterface(CarInterfaceBase):
    
     ret.lcaLeft = self.CS.lca_left != 0
     ret.lcaRight = self.CS.lca_right != 0
+    
+    ret.engineRPM = self.CS.engineRPM
 
     # TODO: button presses
     buttonEvents = []
