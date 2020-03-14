@@ -1282,6 +1282,8 @@ static void ui_draw_vision(UIState *s) {
   glDisable(GL_BLEND);
 }
 
+  engineOnCount = 0;
+
 static void ui_draw_blank(UIState *s) {
   glClearColor(0.0, 0.0, 0.0, 0.0);
   glClear(GL_STENCIL_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
