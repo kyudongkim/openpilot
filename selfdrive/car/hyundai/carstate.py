@@ -12,7 +12,7 @@ def get_can_parser(CP):
   signals = [
     # sig_name, sig_address, default
 	  
-    ("ENGINE_RPM", "POWERTRAIN_DATA", 0),
+    ("Cluster_Engine_RPM", "TCU_DCT13", 0),
     
     ("WHL_SPD_FL", "WHL_SPD11", 0),
     ("WHL_SPD_FR", "WHL_SPD11", 0),
