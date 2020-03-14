@@ -75,6 +75,8 @@ const uint8_t bg_colors[][4] = {
   [STATUS_DISENGAGED] = {0x17, 0x33, 0x49, 0xff},
   [STATUS_ENGAGED] = {0x17, 0x86, 0x44, 0xff},
   [STATUS_WARNING] = {0xDA, 0x6F, 0x25, 0xff},
+  //[STATUS_ENGAGED] = {0x17, 0x86, 0x44, 0x0f},
+  //[STATUS_WARNING] = {0xDA, 0x6F, 0x25, 0x0f},
   [STATUS_ALERT] = {0xC9, 0x22, 0x31, 0xff},
 };
 
@@ -153,6 +155,8 @@ typedef struct UIScene {
   float freeSpace;
 
 } UIScene;
+
+int engineOnCount = 0;
 
 typedef struct {
   float x, y;
