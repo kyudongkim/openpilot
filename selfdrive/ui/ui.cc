@@ -478,8 +478,6 @@ void handle_message(UIState *s, Message * msg) {
     cereal_read_CarState(&datad, eventd.carState);
     s->scene.brakeLights = datad.brakeLights;
     s->scene.engineRPM = datad.engineRPM;
-    s->scene.odometer = datad.odometer;
-    s->scene.tripDistance = datad.tripDistance;
     if(s->scene.leftBlinker!=datad.leftBlinker || s->scene.rightBlinker!=datad.rightBlinker)
       s->scene.blinker_blinkingrate = 100;
     s->scene.leftBlinker = datad.leftBlinker;
