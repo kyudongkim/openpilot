@@ -11,6 +11,9 @@ def get_can_parser(CP):
 
   signals = [
     # sig_name, sig_address, default
+	  
+    ("ENGINE_RPM", "POWERTRAIN_DATA", 0),
+    
     ("WHL_SPD_FL", "WHL_SPD11", 0),
     ("WHL_SPD_FR", "WHL_SPD11", 0),
     ("WHL_SPD_RL", "WHL_SPD11", 0),
@@ -306,6 +309,7 @@ class CarState():
     self.mdps_bus = CP.mdpsBus
     self.sas_bus = CP.sasBus
     self.scc_bus = CP.sccBus
+    self.engineRPM = 0
 
     # Q = np.matrix([[10.0, 0.0], [0.0, 100.0]])
     # R = 1e3
@@ -332,6 +336,8 @@ class CarState():
     self.prev_right_blinker_on = self.right_blinker_on
     self.prev_left_blinker_flash = self.left_blinker_flash
     self.prev_right_blinker_flash = self.right_blinker_flash
+
+    self.engineRPM = cp.vl["POWERTRAIN_DATA"]['ENGINE_RPM']
 
     self.door_all_closed = not any([cp.vl["CGW1"]['CF_Gway_DrvDrSw'],cp.vl["CGW1"]['CF_Gway_AstDrSw'],
                                    cp.vl["CGW2"]['CF_Gway_RLDrSw'], cp.vl["CGW2"]['CF_Gway_RRDrSw']])
