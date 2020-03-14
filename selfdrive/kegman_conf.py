@@ -131,7 +131,7 @@ class kegman_conf():
         self.write_config(self.config)
 
     else:
-      self.config = {"cameraOffset":"0.06", "lastTrMode":"1", "battChargeMin":"70", "battChargeMax":"80", \
+      self.config = {"cameraOffset":"0.06", "lastTrMode":"1", "battChargeMin":"80", "battChargeMax":"90", \
                      "wheelTouchSeconds":"180", "battPercOff":"30", "carVoltageMinEonShutdown":"11800", \
                      "brakeStoppingTarget":"0.25", "tuneGernby":"1", \
                      "Kp":"-1", "Ki":"-1", "liveParams":"1", "leadDistance":"5", "deadzone":"0.0", \
@@ -141,7 +141,6 @@ class kegman_conf():
 		     "steerRatio":"-1", "steerRateCost":"-1", "slowOnCurves":"0", "Kf":"-1", \
 		     "sR_boost":"0", "sR_BP0":"0", "sR_BP1":"0", "sR_time":"1", \
                      "ALCnudgeLess":"1", "ALCminSpeed":"18", "ALCtimer":"1.0", "CrusieDelta":"8", "CruiseEnableMin":"40"}
-
 
       self.write_config(self.config)
     return self.config
