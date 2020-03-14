@@ -481,14 +481,24 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
         char val_str[16];
     char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-      if((int)(scene->maxCpuTemp/10) > 80) {
-        val_color = nvgRGBA(255, 188, 3, 200);
-      }
-      if((int)(scene->maxCpuTemp/10) > 92) {
-        val_color = nvgRGBA(255, 0, 0, 200);
-      }
-      // temp is alway in C * 10
-      snprintf(val_str, sizeof(val_str), "%d°C", (int)(scene->maxCpuTemp/10));
+    char cpu_temp[5];
+    int fd;
+
+    //Read the file with the CPU temp.  1 is equal to .1 degree Celius.
+    fd = open("/sys/class/thermal/thermal_zone6/temp", O_RDONLY);
+    if(fd == -1)
+    {
+    //can't open
+    }
+    else
+    {
+      read(fd, &cpu_temp, 4);
+    }
+
+    cpu_temp[2] = '\0';
+    close(fd);
+
+      snprintf(val_str, sizeof(val_str), "%s°C", (cpu_temp));
       snprintf(uom_str, sizeof(uom_str), "");
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "CPU 온도",
         bb_rx, bb_ry, bb_uom_dx,
@@ -501,15 +511,30 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
   if (true) {
     char val_str[16];
     char uom_str[6];
+    char bat_temp[5] = "";
+    int fd;
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    if((int)(scene->maxBatTemp/1000) > 40) {
+    if (s->scene.pa0 > 50) {
+      val_color = nvgRGBA(255, 0, 0, 200);
+    } else if (s->scene.pa0 > 40) {
       val_color = nvgRGBA(255, 188, 3, 200);
     }
-    if((int)(scene->maxBatTemp/1000) > 50) {
-      val_color = nvgRGBA(255, 0, 0, 200);
+
+    //Read the file with the battery temp.  1 is equal to .1 degree Celius.
+    fd = open("/sys/class/power_supply/battery/subsystem/battery/temp", O_RDONLY);
+    if(fd == -1)
+    {
+      //can't open
     }
-    // temp is alway in C * 1000
-    snprintf(val_str, sizeof(val_str), "%d°C", (int)(scene->maxBatTemp/1000));
+    else
+    {
+      read(fd, &bat_temp, 4);
+    }
+     bat_temp[2] = '\0';
+
+    close(fd);
+
+    snprintf(val_str, sizeof(val_str), "%s°C", bat_temp);
     snprintf(uom_str, sizeof(uom_str), "");
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "배터리 온도",
         bb_rx, bb_ry, bb_uom_dx,
@@ -524,16 +549,21 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
     char bat_lvl[4] = "";
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     int fd;
+    //Read the file with the battery level.  Not expecting anything above 100%
     fd = open("/sys/class/power_supply/battery/capacity", O_RDONLY);
     if(fd == -1)
     {
+      //can't open
     }
     else
     {
       read(fd, &bat_lvl, 3);
     }
+
+    //clean up the last char (wierd rectangle symbol) in the line
     for (int i=1; i<4; i++)
     {
+      //if char is not a digit then replace it with null
       if(isdigit(bat_lvl[i]) == 0)
           {
             bat_lvl[i] = '\0';
