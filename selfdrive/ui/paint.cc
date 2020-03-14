@@ -18,6 +18,12 @@ extern "C"{
 #include "common/glutil.h"
 }
 
+//engine stuff
+void logEngineEvent(bool isEngineOn, int maxRPM);
+int maxRPM = 0;
+bool isEngineOn = 0;
+int engineOnCount = 0;
+
 // TODO: this is also hardcoded in common/transformations/camera.py
 const mat3 intrinsic_matrix = (mat3){{
   910., 0., 582.,
@@ -545,63 +551,20 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
     bb_ry = bb_y + bb_h;
   }
 
-  //add grey panda GPS accuracy
-  /*if (true) {
-    char val_str[16];
-    char uom_str[3];
-    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    //show red/orange if gps accuracy is high
-      if(scene->gpsAccuracy > 0.59) {
-         val_color = nvgRGBA(255, 188, 3, 200);
-      }
-      if(scene->gpsAccuracy > 0.8) {
-         val_color = nvgRGBA(255, 0, 0, 200);
-      }
-    // gps accuracy is always in meters
-    snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.gpsAccuracy));
-    snprintf(uom_str, sizeof(uom_str), "m");;
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "GPS PREC",
-        bb_rx, bb_ry, bb_uom_dx,
-        val_color, lab_color, uom_color,
-        value_fontSize, label_fontSize, uom_fontSize );
-    bb_ry = bb_y + bb_h;
-  }
-  //add free space - from bthaler1
+  //engineRPM - 엔진 RPM
   if (true) {
     char val_str[16];
-    char uom_str[3];
-    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    //show red/orange if free space is low
-    if(scene->freeSpace < 0.4) {
-      val_color = nvgRGBA(255, 188, 3, 200);
-    }
-    if(scene->freeSpace < 0.2) {
-      val_color = nvgRGBA(255, 0, 0, 200);
-    }
-    snprintf(val_str, sizeof(val_str), "%.0f%%", s->scene.freeSpace* 100);
-    snprintf(uom_str, sizeof(uom_str), "");
-    bb_h +=bb_ui_draw_measure(s, val_str, uom_str, "FREE SPACE",
-      bb_rx, bb_ry, bb_uom_dx,
-      val_color, lab_color, uom_color,
-      value_fontSize, label_fontSize, uom_fontSize );
-    bb_ry = bb_y + bb_h;
-  }*/
-  
-	
-  //engineRPM
-  if (true) {
-    char val_str[16];
-    char uom_str[4];
+    char uom_str[6];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     snprintf(val_str, sizeof(val_str), "%d", (s->scene.engineRPM));
-    snprintf(uom_str, sizeof(uom_str), "%d", 0);
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "엔진 RPM",
+    snprintf(uom_str, sizeof(uom_str), "%d", engineOnCount);
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, " RPM",
         bb_rx, bb_ry, bb_uom_dx,
         val_color, lab_color, uom_color,
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
-
+  
   //finally draw the frame
   bb_h += 20;
   nvgBeginPath(s->vg);
@@ -610,7 +573,6 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
   nvgStrokeWidth(s->vg, 6);
   nvgStroke(s->vg);
 }
-
 
 static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w ) {
   const UIScene *scene = &s->scene;
@@ -624,7 +586,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
   int uom_fontSize = 15;
   int bb_uom_dx =  (int)(bb_w /2 - uom_fontSize*2.5) ;
 
-  //add visual radar relative distance
+  //add visual radar relative distance - 앞차 거리차
   if (true) {
     char val_str[16];
     char uom_str[5];
@@ -651,7 +613,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     bb_ry = bb_y + bb_h;
   }
 
-  //add visual radar relative speed
+  //add visual radar relative speed - 앞차 속도차
   if (true) {
     char val_str[16];
     char uom_str[5];
@@ -686,7 +648,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     bb_ry = bb_y + bb_h;
   }
 
-  //add  steering angle
+  //add  steering angle - 핸들 조향각
   if (true) {
     char val_str[16];
     char uom_str[5];
@@ -710,7 +672,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     bb_ry = bb_y + bb_h;
   }
 
-  //add  desired steering angle
+  //add  desired steering angle - OP 조향각
   if (true) {
     char val_str[16];
     char uom_str[5];
@@ -736,7 +698,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
-
+	
   //finally draw the frame
   bb_h += 20;
   nvgBeginPath(s->vg);
@@ -759,6 +721,30 @@ static void bb_ui_draw_UI(UIState *s)
 
   bb_ui_draw_measures_right(s, bb_dml_x, bb_dml_y, bb_dml_w);
   bb_ui_draw_measures_left(s, bb_dmr_x, bb_dmr_y, bb_dmr_w);
+
+ //Code for logging (should be moved to another file?)
+    if(scene->engineRPM > 0){
+      if(isEngineOn == 0){
+        isEngineOn = 1;
+        engineOnCount++;
+        logEngineEvent(isEngineOn, scene->odometer, scene->tripDistance, 0);
+      }
+
+      //Stores RPM
+      if(scene->engineRPM > maxRPM){
+        maxRPM = scene->engineRPM;
+      }
+      isEngineOn = 1;
+    }
+    if(scene->engineRPM < 1){
+      if(isEngineOn == 1){
+        isEngineOn = 0;
+        logEngineEvent(isEngineOn, scene->odometer, scene->tripDistance,maxRPM);
+        previousTripDistance = 0;
+      }
+      isEngineOn = 0;
+      maxRPM = 0;
+    }
 }
 //BB END: functions added for the display of various items
 
@@ -1020,7 +1006,7 @@ static void ui_draw_vision_event(UIState *s) {
     nvgRect(s->vg, img_turn_x, img_turn_y, img_turn_size, img_turn_size);
     nvgFillPaint(s->vg, imgPaint);
     nvgFill(s->vg);
-  } else {
+  } else {	  
     // draw steering wheel
     const int bg_wheel_size = 96;
     const int bg_wheel_x = viz_event_x + (viz_event_w-bg_wheel_size);
@@ -1282,7 +1268,9 @@ static void ui_draw_vision(UIState *s) {
   glDisable(GL_BLEND);
 }
 
+void resetTripDistanceVariables(){
   engineOnCount = 0;
+}
 
 static void ui_draw_blank(UIState *s) {
   glClearColor(0.0, 0.0, 0.0, 0.0);
