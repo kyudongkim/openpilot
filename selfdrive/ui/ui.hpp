@@ -154,9 +154,9 @@ typedef struct UIScene {
   float pa0;
   float freeSpace;
 
-} UIScene;
+  int engineRPM;
 
-//int engineOnCount = 0;
+} UIScene;
 
 typedef struct {
   float x, y;
