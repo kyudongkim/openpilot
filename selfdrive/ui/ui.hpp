@@ -155,8 +155,6 @@ typedef struct UIScene {
   float pa0;
   float freeSpace;
 
-  int engineRPM;
-
 } UIScene;
 
 typedef struct {
