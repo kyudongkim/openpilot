@@ -11,9 +11,6 @@ def get_can_parser(CP):
 
   signals = [
     # sig_name, sig_address, default
-	  
-    ("Cluster_Engine_RPM", "TCU_DCT13", 0),
-    
     ("WHL_SPD_FL", "WHL_SPD11", 0),
     ("WHL_SPD_FR", "WHL_SPD11", 0),
     ("WHL_SPD_RL", "WHL_SPD11", 0),
@@ -476,6 +473,3 @@ class CarState():
     self.clu11 = cp.vl["CLU11"]
     self.scc12 = cp_scc.vl["SCC12"]
     self.mdps12 = cp_mdps.vl["MDPS12"]
-
-    # enginerpm
-    self.engineRPM = cp.vl["TCU_DCT13"]['Cluster_Engine_RPM']
