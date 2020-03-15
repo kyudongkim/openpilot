@@ -18,12 +18,6 @@ extern "C"{
 #include "common/glutil.h"
 }
 
-//engine stuff
-void logEngineEvent(bool isEngineOn, int maxRPM);
-int maxRPM = 0;
-bool isEngineOn = 0;
-int engineOnCount = 0;
-
 // TODO: this is also hardcoded in common/transformations/camera.py
 const mat3 intrinsic_matrix = (mat3){{
   910., 0., 582.,
@@ -581,20 +575,6 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
     bb_ry = bb_y + bb_h;
   }
 
-  //engineRPM - 엔진 RPM
-  if (true) {
-    char val_str[16];
-    char uom_str[6];
-    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    snprintf(val_str, sizeof(val_str), "%d", (s->scene.engineRPM));
-    snprintf(uom_str, sizeof(uom_str), "%d", engineOnCount);
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, " RPM",
-        bb_rx, bb_ry, bb_uom_dx,
-        val_color, lab_color, uom_color,
-        value_fontSize, label_fontSize, uom_fontSize );
-    bb_ry = bb_y + bb_h;
-  }
-  
   //finally draw the frame
   bb_h += 20;
   nvgBeginPath(s->vg);
@@ -1272,10 +1252,6 @@ static void ui_draw_vision(UIState *s) {
 
   nvgEndFrame(s->vg);
   glDisable(GL_BLEND);
-}
-
-void resetTripDistanceVariables(){
-  engineOnCount = 0;
 }
 
 static void ui_draw_blank(UIState *s) {
