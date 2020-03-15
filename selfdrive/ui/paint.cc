@@ -1075,33 +1075,6 @@ static void ui_draw_vision_event(UIState *s) {
   }
 }
 
-static void ui_draw_vision_map(UIState *s) {
-  const UIScene *scene = &s->scene;
-  const int map_size = 88;
-  const int map_x = (scene->ui_viz_rx + (map_size * 3) + (bdr_is * 3));
-  const int map_y = (footer_y + ((footer_h - map_size) / 2));
-  const int map_img_size = (map_size * 1.5);
-  const int map_img_x = (map_x - (map_img_size / 2));
-  const int map_img_y = (map_y - (map_size / 4));
-
-  bool map_valid = s->scene.map_valid;
-  float map_img_alpha = map_valid ? 1.0f : 0.15f;
-  float map_bg_alpha = map_valid ? 0.3f : 0.1f;
-  NVGcolor map_bg = nvgRGBA(0, 0, 0, (255 * map_bg_alpha));
-  NVGpaint map_img = nvgImagePattern(s->vg, map_img_x, map_img_y,
-    map_img_size, map_img_size, 0, s->img_map, map_img_alpha);
-
-  nvgBeginPath(s->vg);
-  nvgCircle(s->vg, map_x, (map_y + (bdr_is * 1.5)), map_size);
-  nvgFillColor(s->vg, map_bg);
-  nvgFill(s->vg);
-
-  nvgBeginPath(s->vg);
-  nvgRect(s->vg, map_img_x, map_img_y, map_img_size, map_img_size);
-  nvgFillPaint(s->vg, map_img);
-  nvgFill(s->vg);
-}
-
 static void ui_draw_vision_face(UIState *s) {
   const UIScene *scene = &s->scene;
   const int face_size = 88;
@@ -1130,7 +1103,7 @@ static void ui_draw_vision_face(UIState *s) {
 static void ui_draw_vision_brake(UIState *s) {
   const UIScene *scene = &s->scene;
   const int brake_size = 88;
-  const int brake_x = (scene->ui_viz_rx + (brake_size * 5) + (bdr_is * 4));
+  const int brake_x = (scene->ui_viz_rx + (brake_size * 3) + (bdr_is * 4));
   const int brake_y = (footer_y + ((footer_h - brake_size) / 2));
   const int brake_img_size = (brake_size * 1.5);
   const int brake_img_x = (brake_x - (brake_img_size / 2));
@@ -1151,6 +1124,33 @@ static void ui_draw_vision_brake(UIState *s) {
   nvgBeginPath(s->vg);
   nvgRect(s->vg, brake_img_x, brake_img_y, brake_img_size, brake_img_size);
   nvgFillPaint(s->vg, brake_img);
+  nvgFill(s->vg);
+}
+
+static void ui_draw_vision_map(UIState *s) {
+  const UIScene *scene = &s->scene;
+  const int map_size = 88;
+  const int map_x = (scene->ui_viz_rx + (map_size * 5) + (bdr_is * 3));
+  const int map_y = (footer_y + ((footer_h - map_size) / 2));
+  const int map_img_size = (map_size * 1.5);
+  const int map_img_x = (map_x - (map_img_size / 2));
+  const int map_img_y = (map_y - (map_size / 4));
+
+  bool map_valid = s->scene.map_valid;
+  float map_img_alpha = map_valid ? 1.0f : 0.15f;
+  float map_bg_alpha = map_valid ? 0.3f : 0.1f;
+  NVGcolor map_bg = nvgRGBA(0, 0, 0, (255 * map_bg_alpha));
+  NVGpaint map_img = nvgImagePattern(s->vg, map_img_x, map_img_y,
+    map_img_size, map_img_size, 0, s->img_map, map_img_alpha);
+
+  nvgBeginPath(s->vg);
+  nvgCircle(s->vg, map_x, (map_y + (bdr_is * 1.5)), map_size);
+  nvgFillColor(s->vg, map_bg);
+  nvgFill(s->vg);
+
+  nvgBeginPath(s->vg);
+  nvgRect(s->vg, map_img_x, map_img_y, map_img_size, map_img_size);
+  nvgFillPaint(s->vg, map_img);
   nvgFill(s->vg);
 }
 
