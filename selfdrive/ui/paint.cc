@@ -28,10 +28,10 @@ const mat3 intrinsic_matrix = (mat3){{
 const uint8_t alert_colors[][4] = {
   [STATUS_STOPPED] = {0x07, 0x23, 0x39, 0xf1},
   [STATUS_DISENGAGED] = {0x17, 0x33, 0x49, 0xc8},
-  [STATUS_ENGAGED] = {0x17, 0x86, 0x44, 0xf1},
-  [STATUS_WARNING] = {0xDA, 0x6F, 0x25, 0x10},
-  //[STATUS_ENGAGED] = {0x17, 0x86, 0x44, 0x01},
-  //[STATUS_WARNING] = {0xDA, 0x6F, 0x25, 0x01},
+  //[STATUS_ENGAGED] = {0x17, 0x86, 0x44, 0xf1},
+  [STATUS_ENGAGED] = {0x17, 0x86, 0x44, 0x01},
+  //[STATUS_WARNING] = {0xDA, 0x6F, 0x25, 0x10},
+  [STATUS_WARNING] = {0xDA, 0x6F, 0x25, 0x01},
   [STATUS_ALERT] = {0xC9, 0x22, 0x31, 0xf1},
 };
 
@@ -472,8 +472,8 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
 
   //add CPU temperature
   if (true) {
-        char val_str[16];
-    char uom_str[6];
+        char val_str[15];
+    char uom_str[5];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     char cpu_temp[5];
     int fd;
@@ -503,8 +503,8 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
 
    //add battery temperature
   if (true) {
-    char val_str[16];
-    char uom_str[6];
+    char val_str[15];
+    char uom_str[5];
     char bat_temp[5] = "";
     int fd;
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
@@ -538,9 +538,9 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
   }
 
     if(true) {
-    char val_str[16];
-    char uom_str[6];
-    char bat_lvl[4] = "";
+    char val_str[15];
+    char uom_str[5];
+    char bat_lvl[5] = "";
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     int fd;
     //Read the file with the battery level.  Not expecting anything above 100%
@@ -625,7 +625,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
 
   //add visual radar relative speed - 앞차 속도차
   if (true) {
-    char val_str[16];
+    char val_str[15];
     char uom_str[5];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     if (scene->lead_status) {
@@ -660,7 +660,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
 
   //add  steering angle - 핸들 조향각
   if (true) {
-    char val_str[16];
+    char val_str[15];
     char uom_str[5];
     NVGcolor val_color = nvgRGBA(0, 255, 0, 200);
       //show Orange if more than 30 degrees
@@ -684,7 +684,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
 
   //add  desired steering angle - OP 조향각
   if (true) {
-    char val_str[16];
+    char val_str[15];
     char uom_str[5];
     NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
     if (scene->engaged) {
@@ -708,7 +708,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
-	
+  
   //finally draw the frame
   bb_h += 20;
   nvgBeginPath(s->vg);
@@ -798,7 +798,7 @@ static void ui_draw_vision_maxspeed(UIState *s) {
   nvgStrokeWidth(s->vg, 10);
   nvgStroke(s->vg);
 
-  // Draw "CRUISE" Text
+  // Draw "MAX" Text
   nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
   nvgFontFace(s->vg, "sans-regular");
   nvgFontSize(s->vg, 20*2.5);
@@ -807,7 +807,7 @@ static void ui_draw_vision_maxspeed(UIState *s) {
   } else {
     nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 100));
   }
-  nvgText(s->vg, viz_maxspeed_x+(viz_maxspeed_xo/2)+(viz_maxspeed_w/2), 148, "CRUISE", NULL);
+  nvgText(s->vg, viz_maxspeed_x+(viz_maxspeed_xo/2)+(viz_maxspeed_w/2), 148, "MAX", NULL);
 
   // Draw Speed Text
   nvgFontFace(s->vg, "sans-bold");
@@ -992,7 +992,7 @@ static void ui_draw_vision_event(UIState *s) {
     nvgRect(s->vg, img_turn_x, img_turn_y, img_turn_size, img_turn_size);
     nvgFillPaint(s->vg, imgPaint);
     nvgFill(s->vg);
-  } else {	  
+  } else {    
     // draw steering wheel
     const int bg_wheel_size = 96;
     const int bg_wheel_x = viz_event_x + (viz_event_w-bg_wheel_size);
@@ -1021,9 +1021,15 @@ static void ui_draw_vision_event(UIState *s) {
     nvgSave(s->vg);
     nvgTranslate(s->vg,bg_wheel_x,(bg_wheel_y + (bdr_s*1.5)));
     nvgRotate(s->vg,-img_rotation);
+ /* nvgBeginPath(s->vg);
+    NVGpaint imgPaint = nvgImagePattern(s->vg, img_wheel_x, img_wheel_y,
+      img_wheel_size, img_wheel_size, 0, s->img_wheel, img_wheel_alpha);
+    nvgRect(s->vg, img_wheel_x, img_wheel_y, img_wheel_size, img_wheel_size);
+    nvgFillPaint(s->vg, imgPaint);
+    nvgFill(s->vg); */
     nvgBeginPath(s->vg);
     NVGpaint imgPaint = nvgImagePattern(s->vg, img_wheel_x-bg_wheel_x, img_wheel_y-(bg_wheel_y + (bdr_s*1.5)),
-	img_wheel_size, img_wheel_size, 0, s->img_wheel, img_wheel_alpha);
+  img_wheel_size, img_wheel_size, 0, s->img_wheel, img_wheel_alpha);
     nvgRect(s->vg, img_wheel_x-bg_wheel_x, img_wheel_y-(bg_wheel_y + (bdr_s*1.5)), img_wheel_size, img_wheel_size);
     nvgFillPaint(s->vg, imgPaint);
     nvgFill(s->vg);
