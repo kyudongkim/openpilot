@@ -757,7 +757,7 @@ static void bb_ui_draw_UI(UIState *s)
       if(isEngineOn == 0){
         isEngineOn = 1;
         engineOnCount++;
-        logEngineEvent(isEngineOn, scene->odometer, scene->tripDistance, 0);
+        logEngineEvent(isEngineOn, 0);
       }
 
       //Stores RPM
@@ -769,8 +769,7 @@ static void bb_ui_draw_UI(UIState *s)
     if(scene->engineRPM < 1){
       if(isEngineOn == 1){
         isEngineOn = 0;
-        logEngineEvent(isEngineOn, scene->odometer, scene->tripDistance,maxRPM);
-        previousTripDistance = 0;
+        logEngineEvent(isEngineOn, maxRPM);
       }
       isEngineOn = 0;
       maxRPM = 0;
