@@ -751,29 +751,6 @@ static void bb_ui_draw_UI(UIState *s)
 
   bb_ui_draw_measures_right(s, bb_dml_x, bb_dml_y, bb_dml_w);
   bb_ui_draw_measures_left(s, bb_dmr_x, bb_dmr_y, bb_dmr_w);
-
- //Code for logging (should be moved to another file?)
-    if(scene->engineRPM > 0){
-      if(isEngineOn == 0){
-        isEngineOn = 1;
-        engineOnCount++;
-        logEngineEvent(isEngineOn, 0);
-      }
-
-      //Stores RPM
-      if(scene->engineRPM > maxRPM){
-        maxRPM = scene->engineRPM;
-      }
-      isEngineOn = 1;
-    }
-    if(scene->engineRPM < 1){
-      if(isEngineOn == 1){
-        isEngineOn = 0;
-        logEngineEvent(isEngineOn, maxRPM);
-      }
-      isEngineOn = 0;
-      maxRPM = 0;
-    }
 }
 //BB END: functions added for the display of various items
 
