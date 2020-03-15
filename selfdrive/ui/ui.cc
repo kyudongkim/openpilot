@@ -477,7 +477,6 @@ void handle_message(UIState *s, Message * msg) {
     struct cereal_CarState datad;
     cereal_read_CarState(&datad, eventd.carState);
     s->scene.brakeLights = datad.brakeLights;
-    s->scene.engineRPM = datad.engineRPM;
     if(s->scene.leftBlinker!=datad.leftBlinker || s->scene.rightBlinker!=datad.rightBlinker)
       s->scene.blinker_blinkingrate = 100;
     s->scene.leftBlinker = datad.leftBlinker;
