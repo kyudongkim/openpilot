@@ -649,7 +649,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     if (s->is_metric) {
       snprintf(uom_str, sizeof(uom_str), "km/h");;
     } else {
-      snprintf(uom_str, sizeof(uom_str), "mph");
+      snprintf(uom_str, sizeof(uom_str), "mile");
     }
     bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "앞차 속도차",
         bb_rx, bb_ry, bb_uom_dx,
