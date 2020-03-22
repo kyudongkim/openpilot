@@ -28,9 +28,7 @@ const mat3 intrinsic_matrix = (mat3){{
 const uint8_t alert_colors[][4] = {
   [STATUS_STOPPED] = {0x07, 0x23, 0x39, 0xf1},
   [STATUS_DISENGAGED] = {0x17, 0x33, 0x49, 0xc8},
-  //[STATUS_ENGAGED] = {0x17, 0x86, 0x44, 0xf1},
   [STATUS_ENGAGED] = {0x17, 0x86, 0x44, 0x01},
-  //[STATUS_WARNING] = {0xDA, 0x6F, 0x25, 0x10},
   [STATUS_WARNING] = {0xDA, 0x6F, 0x25, 0x01},
   [STATUS_ALERT] = {0xC9, 0x22, 0x31, 0xf1},
 };
@@ -209,6 +207,7 @@ static void update_all_track_data(UIState *s) {
     update_track_data(s, true, &s->track_vertices[1]);
   }
 }
+
 
 static void ui_draw_track(UIState *s, bool is_mpc, track_vertices_data *pvd) {
 const UIScene *scene = &s->scene;
@@ -537,6 +536,7 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
     bb_ry = bb_y + bb_h;
   }
 
+    //add battery level
     if(true) {
     char val_str[15];
     char uom_str[5];
@@ -574,6 +574,53 @@ static void bb_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w ) 
         value_fontSize, label_fontSize, uom_fontSize );
     bb_ry = bb_y + bb_h;
   }
+
+  //add grey panda GPS accuracy
+  if (true) {
+    char val_str[16];
+    char uom_str[3];
+    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
+    //show red/orange if gps accuracy is high
+      if(scene->gpsAccuracy > 1.0) {
+         val_color = nvgRGBA(255, 188, 3, 200);
+      }
+      if(scene->gpsAccuracy > 1.5) {
+         val_color = nvgRGBA(255, 0, 0, 200);
+      }
+    // gps accuracy is always in meters
+    snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.gpsAccuracy));
+    snprintf(uom_str, sizeof(uom_str), "m");;
+    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "GPS PREC",
+        bb_rx, bb_ry, bb_uom_dx,
+        val_color, lab_color, uom_color,
+        value_fontSize, label_fontSize, uom_fontSize );
+    bb_ry = bb_y + bb_h;
+  }
+
+  //add free space - from bthaler1
+  /*if (true) {
+    char val_str[16];
+    char uom_str[3];
+    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
+
+    //show red/orange if free space is low
+    if(scene->freeSpace < 0.4) {
+      val_color = nvgRGBA(255, 188, 3, 200);
+    }
+    if(scene->freeSpace < 0.2) {
+      val_color = nvgRGBA(255, 0, 0, 200);
+    }
+
+    snprintf(val_str, sizeof(val_str), "%.0f%%", s->scene.freeSpace* 100);
+    snprintf(uom_str, sizeof(uom_str), "");
+
+    bb_h +=bb_ui_draw_measure(s, val_str, uom_str, "FREE SPACE",
+      bb_rx, bb_ry, bb_uom_dx,
+      val_color, lab_color, uom_color,
+      value_fontSize, label_fontSize, uom_fontSize );
+    bb_ry = bb_y + bb_h;
+  }*/
+  
 
   //finally draw the frame
   bb_h += 20;
@@ -1031,6 +1078,32 @@ static void ui_draw_vision_event(UIState *s) {
   }
 }
 
+static void ui_draw_vision_map(UIState *s) {
+  const UIScene *scene = &s->scene;
+  const int map_size = 96;
+  const int map_x = (scene->ui_viz_rx + (map_size * 3) + (bdr_is * 3));
+  const int map_y = (footer_y + ((footer_h - map_size) / 2));
+  const int map_img_size = (map_size * 1.5);
+  const int map_img_x = (map_x - (map_img_size / 2));
+  const int map_img_y = (map_y - (map_size / 4));
+
+  bool map_valid = s->scene.map_valid;
+  float map_img_alpha = map_valid ? 1.0f : 0.15f;
+  float map_bg_alpha = map_valid ? 0.3f : 0.1f;
+  NVGcolor map_bg = nvgRGBA(0, 0, 0, (255 * map_bg_alpha));
+  NVGpaint map_img = nvgImagePattern(s->vg, map_img_x, map_img_y,
+    map_img_size, map_img_size, 0, s->img_map, map_img_alpha);
+
+  nvgBeginPath(s->vg);
+  nvgCircle(s->vg, map_x, (map_y + (bdr_is * 1.5)), map_size);
+  nvgFillColor(s->vg, map_bg);
+  nvgFill(s->vg);
+
+  nvgBeginPath(s->vg);
+  nvgRect(s->vg, map_img_x, map_img_y, map_img_size, map_img_size);
+  nvgFillPaint(s->vg, map_img);
+  nvgFill(s->vg);
+}
 
 static void ui_draw_vision_face(UIState *s) {
   const UIScene *scene = &s->scene;
@@ -1084,32 +1157,6 @@ static void ui_draw_vision_brake(UIState *s) {
   nvgFill(s->vg);
 }
 
-static void ui_draw_vision_map(UIState *s) {
-  const UIScene *scene = &s->scene;
-  const int map_size = 88;
-  const int map_x = (scene->ui_viz_rx + (map_size * 5) + (bdr_is * 3));
-  const int map_y = (footer_y + ((footer_h - map_size) / 2));
-  const int map_img_size = (map_size * 1.5);
-  const int map_img_x = (map_x - (map_img_size / 2));
-  const int map_img_y = (map_y - (map_size / 4));
-
-  bool map_valid = s->scene.map_valid;
-  float map_img_alpha = map_valid ? 1.0f : 0.15f;
-  float map_bg_alpha = map_valid ? 0.3f : 0.1f;
-  NVGcolor map_bg = nvgRGBA(0, 0, 0, (255 * map_bg_alpha));
-  NVGpaint map_img = nvgImagePattern(s->vg, map_img_x, map_img_y,
-    map_img_size, map_img_size, 0, s->img_map, map_img_alpha);
-
-  nvgBeginPath(s->vg);
-  nvgCircle(s->vg, map_x, (map_y + (bdr_is * 1.5)), map_size);
-  nvgFillColor(s->vg, map_bg);
-  nvgFill(s->vg);
-
-  nvgBeginPath(s->vg);
-  nvgRect(s->vg, map_img_x, map_img_y, map_img_size, map_img_size);
-  nvgFillPaint(s->vg, map_img);
-  nvgFill(s->vg);
-}
 
 static void ui_draw_vision_header(UIState *s) {
   const UIScene *scene = &s->scene;
