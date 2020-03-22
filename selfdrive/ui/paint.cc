@@ -1080,8 +1080,8 @@ static void ui_draw_vision_event(UIState *s) {
 
 static void ui_draw_vision_map(UIState *s) {
   const UIScene *scene = &s->scene;
-  const int map_size = 96;
-  const int map_x = (scene->ui_viz_rx + (map_size * 3) + (bdr_is * 3));
+  const int map_size = 88;
+  const int map_x = (scene->ui_viz_rx + (map_size * 5) + (bdr_is * 3));
   const int map_y = (footer_y + ((footer_h - map_size) / 2));
   const int map_img_size = (map_size * 1.5);
   const int map_img_x = (map_x - (map_img_size / 2));
