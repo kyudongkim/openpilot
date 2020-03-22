@@ -1065,13 +1065,21 @@ static void ui_draw_vision_event(UIState *s) {
       nvgFill(s->vg);
       img_wheel_alpha = 1.0f;
     }
+    /*
+    nvgBeginPath(s->vg);
+    NVGpaint imgPaint = nvgImagePattern(s->vg, img_wheel_x, img_wheel_y,
+      img_wheel_size, img_wheel_size, 0, s->img_wheel, img_wheel_alpha);
+    nvgRect(s->vg, img_wheel_x, img_wheel_y, img_wheel_size, img_wheel_size);
+    nvgFillPaint(s->vg, imgPaint);
+    nvgFill(s->vg);
+    */
     nvgSave(s->vg);
-    nvgTranslate(s->vg,bg_wheel_x,(bg_wheel_y + (bdr_s*1.5)));
+    nvgTranslate(s->vg,bg_wheel_x,(bg_wheel_y + (bdr_s*4.5))); //bdr_s*1.5 is 30*1.5 bdr_s change 10 to 10*4.5
     nvgRotate(s->vg,-img_rotation);
     nvgBeginPath(s->vg);
-    NVGpaint imgPaint = nvgImagePattern(s->vg, img_wheel_x-bg_wheel_x, img_wheel_y-(bg_wheel_y + (bdr_s*1.5)),
+    NVGpaint imgPaint = nvgImagePattern(s->vg, img_wheel_x-bg_wheel_x, img_wheel_y-(bg_wheel_y + (bdr_s*4.5)),
 	img_wheel_size, img_wheel_size, 0, s->img_wheel, img_wheel_alpha);
-    nvgRect(s->vg, img_wheel_x-bg_wheel_x, img_wheel_y-(bg_wheel_y + (bdr_s*1.5)), img_wheel_size, img_wheel_size);
+    nvgRect(s->vg, img_wheel_x-bg_wheel_x, img_wheel_y-(bg_wheel_y + (bdr_s*4.5)), img_wheel_size, img_wheel_size);
     nvgFillPaint(s->vg, imgPaint);
     nvgFill(s->vg);
     nvgRestore(s->vg);
