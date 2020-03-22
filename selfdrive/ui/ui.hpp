@@ -51,8 +51,8 @@ const int vwp_h = 1080;
 const int nav_w = 640;
 const int nav_ww= 760;
 const int sbr_w = 300;
-//const int bdr_s = 30; 
-//const int bdr_s = 0; 
+//const int bdr_s = 30; //bg bdr color default
+//const int bdr_s = 0; //bg bdr remove
 const int bdr_s = 10;
 const int bdr_is = 30;
 const int box_x = sbr_w+bdr_s;
@@ -75,10 +75,10 @@ const int SET_SPEED_NA = 255;
 const uint8_t bg_colors[][4] = {
   [STATUS_STOPPED] = {0x07, 0x23, 0x39, 0xff},
   [STATUS_DISENGAGED] = {0x17, 0x33, 0x49, 0xff},
-  [STATUS_ENGAGED] = {0x17, 0x86, 0x44, 0xff},
-  [STATUS_WARNING] = {0xDA, 0x6F, 0x25, 0xff},
-  //[STATUS_ENGAGED] = {0x17, 0x86, 0x44, 0x0f},
-  //[STATUS_WARNING] = {0xDA, 0x6F, 0x25, 0x0f},
+  //[STATUS_ENGAGED] = {0x17, 0x86, 0x44, 0xff},
+  [STATUS_ENGAGED] = {0x17, 0x86, 0x44, 0x0f},
+  //[STATUS_WARNING] = {0xDA, 0x6F, 0x25, 0xff},
+  [STATUS_WARNING] = {0xDA, 0x6F, 0x25, 0x0f},
   [STATUS_ALERT] = {0xC9, 0x22, 0x31, 0xff},
 };
 
