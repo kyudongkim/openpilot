@@ -810,7 +810,7 @@ static void ui_draw_vision_maxspeed(UIState *s) {
   int viz_maxspeed_w = 184;
   int viz_maxspeed_h = 202;
   int viz_maxspeed_x = (ui_viz_rx + (bdr_is*2));
-  int viz_maxspeed_y = (box_y + (bdr_is*1.5));
+  int viz_maxspeed_y = (box_y + (bdr_is*4.5));
   int viz_maxspeed_xo = 180;
 
 #ifdef SHOW_SPEEDLIMIT
