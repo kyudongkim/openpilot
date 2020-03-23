@@ -130,7 +130,7 @@ class CarController():
             left_line, right_line,left_lane_depart, right_lane_depart)
 
     clu11_speed = CS.clu11["CF_Clu_Vanz"]
-    enabled_speed = 34 if CS.is_set_speed_in_mph  else 55
+    enabled_speed = 35 if CS.is_set_speed_in_mph  else 55
     if clu11_speed > enabled_speed or not lkas_active:
       enabled_speed = clu11_speed
 
