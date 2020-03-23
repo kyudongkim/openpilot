@@ -810,7 +810,7 @@ static void ui_draw_vision_maxspeed(UIState *s) {
   int viz_maxspeed_w = 184;
   int viz_maxspeed_h = 202;
   int viz_maxspeed_x = (ui_viz_rx + (bdr_is*2));
-  int viz_maxspeed_y = (box_y + (bdr_is*4.5));
+  int viz_maxspeed_y = (box_y + (bdr_is*1.5));
   int viz_maxspeed_xo = 180;
 
 #ifdef SHOW_SPEEDLIMIT
@@ -854,7 +854,7 @@ static void ui_draw_vision_maxspeed(UIState *s) {
   } else {
     nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 100));
   }
-  nvgText(s->vg, viz_maxspeed_x+(viz_maxspeed_xo/2)+(viz_maxspeed_w/2), 148, "MAX", NULL);
+  nvgText(s->vg, viz_maxspeed_x+(viz_maxspeed_xo/2)+(viz_maxspeed_w/2), 128, "MAX", NULL);
 
   // Draw Speed Text
   nvgFontFace(s->vg, "sans-bold");
@@ -862,12 +862,12 @@ static void ui_draw_vision_maxspeed(UIState *s) {
   if (is_cruise_set) {
     snprintf(maxspeed_str, sizeof(maxspeed_str), "%d", maxspeed_calc);
     nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 255));
-    nvgText(s->vg, viz_maxspeed_x+(viz_maxspeed_xo/2)+(viz_maxspeed_w/2), 242, maxspeed_str, NULL);
+    nvgText(s->vg, viz_maxspeed_x+(viz_maxspeed_xo/2)+(viz_maxspeed_w/2), 222, maxspeed_str, NULL);
   } else {
     nvgFontFace(s->vg, "sans-semibold");
     nvgFontSize(s->vg, 40*2.5);
     nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 100));
-    nvgText(s->vg, viz_maxspeed_x+(viz_maxspeed_xo/2)+(viz_maxspeed_w/2), 242, "-", NULL);
+    nvgText(s->vg, viz_maxspeed_x+(viz_maxspeed_xo/2)+(viz_maxspeed_w/2), 222, "-", NULL);
   }
   //BB START: add new measures panel  const int bb_dml_w = 180;
   bb_ui_draw_UI(s);
