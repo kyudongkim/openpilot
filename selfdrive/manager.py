@@ -163,14 +163,14 @@ ThermalStatus = cereal.log.ThermalData.ThermalStatus
 # comment out anything you don't want to run
 managed_processes = {
   "thermald": "selfdrive.thermald.thermald",
-  "uploader": "selfdrive.loggerd.uploader",
-  "deleter": "selfdrive.loggerd.deleter",
+#  "uploader": "selfdrive.loggerd.uploader",
+#  "deleter": "selfdrive.loggerd.deleter",
   "controlsd": "selfdrive.controls.controlsd",
   "plannerd": "selfdrive.controls.plannerd",
   "radard": "selfdrive.controls.radard",
   "dmonitoringd": "selfdrive.monitoring.dmonitoringd",
   "ubloxd": ("selfdrive/locationd", ["./ubloxd"]),
-  "loggerd": ("selfdrive/loggerd", ["./loggerd"]),
+#  "loggerd": ("selfdrive/loggerd", ["./loggerd"]),
   "logmessaged": "selfdrive.logmessaged",
   "locationd": "selfdrive.locationd.locationd",
   "tombstoned": "selfdrive.tombstoned",
@@ -222,13 +222,10 @@ persistent_processes = [
 
 if not PC:
   persistent_processes += [
+    'updated',    
     'logcatd',
     'tombstoned',
-  ]
-
-if ANDROID:
-  persistent_processes += [
-    'updated',
+    'sensord',    
     'shutdownd',    
   ]
 
@@ -260,7 +257,6 @@ if WEBCAM:
 if not PC:
   car_started_processes += [
     'ubloxd',
-    'sensord',
     'dmonitoringd',
     'dmonitoringmodeld',
   ]
@@ -571,7 +567,7 @@ def main():
   params.manager_start()
 
   default_params = [
-    ("CommunityFeaturesToggle", "0"),
+    ("CommunityFeaturesToggle", "1"),
     ("CompletedTrainingVersion", "0"),
     ("IsRHD", "0"),
     ("IsMetric", "0"),
@@ -584,7 +580,7 @@ def main():
     ("OpenpilotEnabledToggle", "1"),
     ("LaneChangeEnabled", "1"),
     ("LongControlEnabled", "0"),
-    ("MadModeEnabled", "0"),
+    ("MadModeEnabled", "1"),
     ("AutoLaneChangeEnabled", "0"),
     ("IsDriverViewEnabled", "0"),
   ]
