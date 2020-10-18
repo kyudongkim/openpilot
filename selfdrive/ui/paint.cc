@@ -367,13 +367,11 @@ static void ui_draw_world(UIState *s) {
   ui_draw_vision_lanes(s);
 
   // Draw lead indicators if openpilot is handling longitudinal
-  if (s->longitudinal_control) {
-    if (scene->lead_data[0].getStatus()) {
-      draw_lead(s, scene->lead_data[0]);
-    }
-    if (scene->lead_data[1].getStatus() && (std::abs(scene->lead_data[0].getDRel() - scene->lead_data[1].getDRel()) > 3.0)) {
-      draw_lead(s, scene->lead_data[1]);
-    }
+  if (scene->lead_data[0].getStatus()) {
+    draw_lead(s, scene->lead_data[0]);
+  }
+  if (scene->lead_data[1].getStatus() && (std::abs(scene->lead_data[0].getDRel() - scene->lead_data[1].getDRel()) > 3.0)) {
+    draw_lead(s, scene->lead_data[1]);
   }
   nvgRestore(s->vg);
 }
@@ -825,8 +823,8 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
 static void bb_ui_draw_UI(UIState *s)
 {
   const int bb_dmr_w = 180;
-  const int bb_dmr_x = 70 + 1840 - bb_dmr_w - (bdr_is * 2); //70 is hardcoded for ui_viz_rx, which doesn't exist anymore, and 1840 is ui_viz_rw -wirelessnet2  
-  const int bb_dmr_y = (s->scene.viz_rect.y + (bdr_is * 1.5)) + 220;
+  const int bb_dmr_x = 70 + 1840 - bb_dmr_w - (bdr_is * 2);
+  const int bb_dmr_y = (scene->viz_rect.y + (bdr_is * 1.5)) + 220;
 
   bb_ui_draw_measures_right(s, bb_dmr_x, bb_dmr_y-20, bb_dmr_w);
 }
