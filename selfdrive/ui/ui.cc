@@ -175,7 +175,6 @@ void update_sockets(UIState *s) {
   }
 
   if (sm.updated("liveParameters")) {
-    //scene.liveParams = sm["liveParameters"].getLiveParameters();
     auto data = sm["liveParameters"].getLiveParameters();    
     s->scene.steerRatio=data.getSteerRatio();
   }
