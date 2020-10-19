@@ -222,11 +222,14 @@ persistent_processes = [
 
 if not PC:
   persistent_processes += [
-    'updated',    
     'logcatd',
     'tombstoned',
-    'sensord',    
-    'shutdownd',    
+  ]
+
+if ANDROID:
+  persistent_processes += [
+    'updated',
+    'shutdownd',
   ]
 
 car_started_processes = [
@@ -257,6 +260,7 @@ if WEBCAM:
 if not PC:
   car_started_processes += [
     'ubloxd',
+    'sensord',    
     'dmonitoringd',
     'dmonitoringmodeld',
   ]
