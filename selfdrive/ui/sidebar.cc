@@ -36,13 +36,14 @@ static void ui_draw_sidebar_battery_icon(UIState *s) {
   const int battery_img_y = 245;
   const int battery_img_w = 160;
   const int battery_img_h = 65;
-
+  
   int battery_img = s->scene.thermal.getBatteryStatus() == "Charging" ? s->img_battery_charging : s->img_battery;
-
-  ui_draw_rect(s->vg, battery_img_x + 6, battery_img_y + 5,
-               ((battery_img_w - 19) * (s->scene.thermal.getBatteryPercent() * 0.01)), battery_img_h - 11, COLOR_WHITE);
-
   ui_draw_image(s->vg, battery_img_x, battery_img_y, battery_img_w, battery_img_h, battery_img, 1.0f);
+  
+  nvgFillColor(s->vg, COLOR_WHITE);
+  nvgFontSize(s->vg, 35);
+  nvgFontFaceId(s->vg, s->font_sans_bold);
+  nvgTextBox(s->vg, battery_img_x, battery_img_y, battery_img_w, s->scene.thermal.getBatteryPercent().cStr(), NULL);
 }
 
 static void ui_draw_sidebar_metric(UIState *s, const char* label_str, const char* value_str, const int severity, const int y_offset, const char* message_str) {
