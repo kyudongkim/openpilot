@@ -11,8 +11,6 @@ import datetime
 import textwrap
 from typing import Dict, List
 from selfdrive.swaglog import cloudlog, add_logentries_handler
-
-
 from common.basedir import BASEDIR, PARAMS
 from common.hardware import HARDWARE, ANDROID, PC
 WEBCAM = os.getenv("WEBCAM") is not None
@@ -65,7 +63,6 @@ def unblock_stdout():
     # whose low byte is the signal number and whose high byte is the exit satus
     exit_status = os.wait()[1] >> 8
     os._exit(exit_status)
-
 
 if __name__ == "__main__":
   unblock_stdout()
@@ -149,7 +146,6 @@ if not prebuilt:
 
 import cereal
 import cereal.messaging as messaging
-
 from common.params import Params
 import selfdrive.crash as crash
 from selfdrive.registration import register
@@ -350,7 +346,6 @@ def prepare_managed_process(p):
       subprocess.check_call(["make", "clean"], cwd=os.path.join(BASEDIR, proc[0]))
       subprocess.check_call(["make", "-j4"], cwd=os.path.join(BASEDIR, proc[0]))
 
-
 def join_process(process, timeout):
   # Process().join(timeout) will hang due to a python 3 bug: https://bugs.python.org/issue28382
   # We have to poll the exitcode instead
@@ -394,7 +389,6 @@ def kill_managed_process(name):
   cloudlog.info("%s is dead with %d" % (name, running[name].exitcode))
   del running[name]
 
-
 def cleanup_all_processes(signal, frame):
   cloudlog.info("caught ctrl-c %s %s" % (signal, frame))
 
@@ -411,7 +405,6 @@ def send_managed_process_signal(name, sig):
     return
   cloudlog.info(f"sending signal {sig} to {name}")
   os.kill(running[name].pid, sig)
-
 
 # ****************** run loop ******************
 
@@ -574,7 +567,7 @@ def main():
     ("CommunityFeaturesToggle", "1"),
     ("CompletedTrainingVersion", "0"),
     ("IsRHD", "0"),
-    ("IsMetric", "0"),
+    ("IsMetric", "1"),
     ("RecordFront", "0"),
     ("HasAcceptedTerms", "0"),
     ("HasCompletedSetup", "0"),
@@ -623,7 +616,6 @@ def main():
 
   if params.get("DoUninstall", encoding='utf8') == "1":
     uninstall()
-
 
 if __name__ == "__main__":
   try:
