@@ -121,21 +121,24 @@ typedef struct UIScene {
   cereal::ControlsState::AlertSize alert_size;
   
   // ui add
-  bool rightblindspot;
-  bool leftblindspot;
   bool leftBlinker;
+  bool leftblindspot;
   bool rightBlinker;
-  int blinker_blinkingrate;
-  float angleSteers;
-  float steerRatio;
+  bool rightblindspot;
   bool brakeLights;
-  float angleSteersDes;
   bool steerOverride;
-  float output_scale; 
-  int batteryPercent;
   bool batteryCharging;
-  char batteryStatus[64];  
+  
+  int blinker_blinkingrate;
+  int batteryPercent;
+    
+  float angleSteers;
+  float angleSteersDes;
+  float steerRatio;
+  float output_scale;
   float cpuTempAvg;
+  
+  char batteryStatus[64];
 
   cereal::HealthData::HwType hwType;
   int satelliteCount;
