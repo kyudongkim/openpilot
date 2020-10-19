@@ -341,8 +341,8 @@ class CarInterface(CarInterfaceBase):
       events.add(EventName.steerTempUnavailable)
     if self.low_speed_alert and not self.CS.mdps_bus:
       events.add(EventName.belowSteerSpeed)
-    if self.CC.turning_indicator_alert:
-      events.add(EventName.turningIndicatorOn)
+#    if self.CC.turning_indicator_alert:
+#      events.add(EventName.turningIndicatorOn)
     if self.lkas_button_alert:
       events.add(EventName.lkasButtonOff)
     if self.mad_mode_enabled and not self.CC.longcontrol and EventName.pedalPressed in events.events:
