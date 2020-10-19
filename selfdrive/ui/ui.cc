@@ -6,7 +6,6 @@
 #include <assert.h>
 #include <poll.h>
 #include <sys/mman.h>
-
 #include "common/util.h"
 #include "common/swaglog.h"
 #include "common/visionimg.h"
@@ -173,7 +172,7 @@ void update_sockets(UIState *s) {
       }
     }
   }
-
+  
   if (sm.updated("liveParameters")) {
     auto data = sm["liveParameters"].getLiveParameters();    
     s->scene.steerRatio=data.getSteerRatio();
@@ -183,10 +182,12 @@ void update_sockets(UIState *s) {
     auto data = sm["radarState"].getRadarState();
     scene.lead_data[0] = data.getLeadOne();
     scene.lead_data[1] = data.getLeadTwo();
-    s->scene.lead_v_rel = scene.lead_data[0].getVRel();
     s->scene.lead_d_rel = scene.lead_data[0].getDRel();
+    s->scene.lead_v_rel = scene.lead_data[0].getVRel();
+    s->scene.lead_y_rel = scene.lead_data[0].getYRel();
     s->scene.lead_status = scene.lead_data[0].getStatus();
   }
+  
   if (sm.updated("liveCalibration")) {
     scene.world_objects_visible = true;
     auto extrinsicl = sm["liveCalibration"].getLiveCalibration().getExtrinsicMatrix();
@@ -194,12 +195,14 @@ void update_sockets(UIState *s) {
       scene.extrinsic_matrix.v[i] = extrinsicl[i];
     }
   }
+  
   if (sm.updated("model")) {
     scene.model = sm["model"].getModel();
     fill_path_points(scene.model.getPath(), scene.path_points);
     fill_path_points(scene.model.getLeftLane(), scene.left_lane_points);
     fill_path_points(scene.model.getRightLane(), scene.right_lane_points);
   }
+  
   if (sm.updated("liveMpc")) {
     auto data = sm["liveMpc"].getLiveMpc();
     auto x_list = data.getX();
@@ -209,16 +212,19 @@ void update_sockets(UIState *s) {
       scene.mpc_y[i] = y_list[i];
     }
     s->livempc_or_radarstate_changed = true;
-  }  
+  }
+  
   if (sm.updated("uiLayoutState")) {
     auto data = sm["uiLayoutState"].getUiLayoutState();
     s->active_app = data.getActiveApp();
     scene.uilayout_sidebarcollapsed = data.getSidebarCollapsed();
   }
+  
   if (sm.updated("thermal")) {
     scene.thermal = sm["thermal"].getThermal();
     scene.cpuTempAvg = (scene.thermal.getCpu()[0] + scene.thermal.getCpu()[1] + scene.thermal.getCpu()[2] + scene.thermal.getCpu()[3]) / 4;           
   }
+  
   if (sm.updated("ubloxGnss")) {
     auto data = sm["ubloxGnss"].getUbloxGnss();
     if (data.which() == cereal::UbloxGnss::MEASUREMENT_REPORT) {
@@ -226,6 +232,7 @@ void update_sockets(UIState *s) {
       s->scene.satelliteCount = scene.satelliteCount;      
     }
   }
+  
   if (sm.updated("health")) {
     auto health = sm["health"].getHealth();
     scene.hwType = health.getHwType();
@@ -233,12 +240,15 @@ void update_sockets(UIState *s) {
   } else if ((s->sm->frame - s->sm->rcv_frame("health")) > 5*UI_FREQ) {
     scene.hwType = cereal::HealthData::HwType::UNKNOWN;
   }
+  
   if (sm.updated("carParams")) {
     s->longitudinal_control = sm["carParams"].getCarParams().getOpenpilotLongitudinalControl();
   }
+  
   if (sm.updated("driverState")) {
     scene.driver_state = sm["driverState"].getDriverState();
   }
+  
   if (sm.updated("dMonitoringState")) {
     scene.dmonitoring_state = sm["dMonitoringState"].getDMonitoringState();
     scene.is_rhd = scene.dmonitoring_state.getIsRHD();
@@ -246,6 +256,7 @@ void update_sockets(UIState *s) {
   } else if ((sm.frame - sm.rcv_frame("dMonitoringState")) > UI_FREQ/2) {
     scene.frontview = false;
   }
+  
   if (sm.updated("carState")) {
     auto data = sm["carState"].getCarState();
     if(scene.leftBlinker!=data.getLeftBlinker() || scene.rightBlinker!=data.getRightBlinker()){
@@ -303,7 +314,6 @@ void ui_update(UIState *s) {
         s->sound->play(AudibleAlert::CHIME_WARNING_REPEAT);
         LOGE("Controls unresponsive");
       }
-
       s->scene.alert_text1 = "즉시 핸들을 잡아주세요";
       s->scene.alert_text2 = "컨트롤이 응답하지않습니다";
       s->scene.alert_size = cereal::ControlsState::AlertSize::FULL;

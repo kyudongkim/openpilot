@@ -124,6 +124,7 @@ static void draw_lead(UIState *s, const cereal::RadarState::LeadData::Reader &le
   float leadBuff = 40.;
   float d_rel = lead.getDRel();
   float v_rel = lead.getVRel();
+  float y_rel = lead.getYRel();	
   if (d_rel < leadBuff) {
     fillAlpha = 255*(1.0-(d_rel/leadBuff));
     if (v_rel < 0) {
@@ -132,10 +133,10 @@ static void draw_lead(UIState *s, const cereal::RadarState::LeadData::Reader &le
     fillAlpha = (int)(fmin(fillAlpha, 255));
   }
   if (s->longitudinal_control) {
-    draw_chevron(s, d_rel + 3, lead.getYRel(), 25, COLOR_RED_ALPHA(fillAlpha), COLOR_YELLOW);
+    draw_chevron(s, d_rel + 3, y_rel, 25, COLOR_RED_ALPHA(fillAlpha), COLOR_YELLOW);
   }
   else {
-    draw_chevron(s, d_rel + 3, lead.getYRel(), 25, COLOR_RED_ALPHA(fillAlpha), COLOR_YELLOW);
+    draw_chevron(s, d_rel + 3, y_rel, 25, COLOR_RED_ALPHA(fillAlpha), COLOR_YELLOW);
   }
 }
 
@@ -638,7 +639,7 @@ static int bb_ui_draw_measure(UIState *s,  const char* bb_value, const char* bb_
     int ry = bb_y + (int)(bb_valueFontSize*2.5/2)+25;
     nvgTranslate(s->vg,rx,ry);
     nvgRotate(s->vg, -1.5708); //-90deg in radians
-    nvgFontFace(s->vg, "sans-regular");
+    nvgFontFace(s->vg, "sans-bold");
     nvgFontSize(s->vg, (int)(bb_uomFontSize*2.5));
     nvgFillColor(s->vg, bb_uomColor);
     nvgText(s->vg, 0, 0, bb_uom, NULL);
