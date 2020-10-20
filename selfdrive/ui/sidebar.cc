@@ -42,9 +42,9 @@ static void ui_draw_sidebar_battery_icon(UIState *s) {
 }
 
 static void ui_draw_sidebar_battery_per(UIState *s) {
-  const int battery_per_x = 70;
+  const int battery_per_x = 100;
   const int battery_per_y = 277;  
-  const int battery_per_w = 70;
+  const int battery_per_w = 100;
 
   char battery_str[5];
   snprintf(battery_str, sizeof(battery_str), "%d%%", s->scene.thermal.getBatteryPercent());
