@@ -32,18 +32,27 @@ static void ui_draw_sidebar_ipaddress(UIState *s) {
 }
 
 static void ui_draw_sidebar_battery_icon(UIState *s) {
-  const int battery_img_x = 65;
+  const int battery_img_x = 50;
   const int battery_img_y = 245;
-  const int battery_img_w = 160;
+  const int battery_img_w = 220;
   const int battery_img_h = 65;
   
   int battery_img = s->scene.thermal.getBatteryStatus() == "Charging" ? s->img_battery_charging : s->img_battery;
   ui_draw_image(s->vg, battery_img_x, battery_img_y, battery_img_w, battery_img_h, battery_img, 1.0f);
-  
-#  nvgFillColor(s->vg, COLOR_BLACK);
-#  nvgFontSize(s->vg, 30);
-#  nvgFontFaceId(s->vg, s->font_sans_bold);
-#  nvgTextBox(s->vg, battery_img_x + 10, battery_img_y + 10, battery_img_w - 100, s->scene.thermal.getBatteryPercent().cStr(), NULL);
+}
+
+static void ui_draw_sidebar_battery_per(UIState *s) {
+  const int battery_per_x = 70;
+  const int battery_per_y = 277;  
+  const int battery_per_w = 70;
+
+  char battery_str[5];
+  snprintf(battery_str, sizeof(battery_str), "%d%%", s->scene.thermal.getBatteryPercent());
+  nvgFillColor(s->vg, COLOR_BLACK);
+  nvgFontSize(s->vg, 35);
+  nvgFontFaceId(s->vg, s->font_sans_bold);
+  nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);
+  nvgTextBox(s->vg, battery_per_x, battery_per_y, battery_per_w, battery_str, NULL);
 }
 
 static void ui_draw_sidebar_metric(UIState *s, const char* label_str, const char* value_str, const int severity, const int y_offset, const char* message_str) {
@@ -140,6 +149,7 @@ void ui_draw_sidebar(UIState *s) {
   ui_draw_sidebar_home_button(s);
   ui_draw_sidebar_ipaddress(s);
   ui_draw_sidebar_battery_icon(s);
+  ui_draw_sidebar_battery_per(s);  
   ui_draw_sidebar_temp_metric(s);
   ui_draw_sidebar_panda_metric(s);
   ui_draw_sidebar_connectivity(s);
