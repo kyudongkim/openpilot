@@ -245,7 +245,9 @@ static void ui_draw_track(UIState *s, bool is_mpc, track_vertices_data *pvd) {
     track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
       nvgRGBA(255, 255, 255, 200), nvgRGBA(255, 255, 255, 50));
   }
-	
+  nvgFillPaint(s->vg, track_bg);
+  nvgFill(s->vg);
+}	
 /*	
   NVGpaint track_bg;
   if (is_mpc) {
