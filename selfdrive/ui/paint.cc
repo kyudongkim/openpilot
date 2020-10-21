@@ -231,10 +231,11 @@ static void ui_draw_track(UIState *s, bool is_mpc, track_vertices_data *pvd) {
     // Draw colored MPC track
     const NVGcolor clr = bg_colors[s->status];
     track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
-                                 nvgRGBA(clr.r, clr.g, clr.b, 255), nvgRGBA(clr.r, clr.g, clr.b, 255/2));	  
+                                 nvgRGBA(clr.r, clr.g, clr.b, 255), nvgRGBA(clr.r, clr.g, clr.b, 255/2));
   } else {
     // Draw white vision track
-    track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4, COLOR_WHITE, COLOR_WHITE_ALPHA(0));
+    track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
+				 COLOR_WHITE, COLOR_WHITE_ALPHA(0));
   }
   nvgFillPaint(s->vg, track_bg);
   nvgFill(s->vg);
@@ -472,7 +473,6 @@ static void ui_draw_vision_event(UIState *s) {
     bool is_engaged = (s->status == STATUS_ENGAGED) && !s->scene.steerOverride;
     bool is_warning = (s->status == STATUS_WARNING);
     bool is_engageable = s->scene.controls_state.getEngageable();
-    //bool is_oplong = (s->status == STATUS_ENGAGED_OPLONG);
 
     if (is_engaged || is_warning || is_engageable) {
       nvgBeginPath(s->vg);
