@@ -18,8 +18,6 @@ class CarInterface(CarInterfaceBase):
     self.mad_mode_enabled = Params().get('MadModeEnabled') == b'1' # only for non-SCC cars
     self.lkas_button_alert = False
     
-    self.lateral = lqr
-
   @staticmethod
   def compute_gb(accel, speed):
     return float(accel) / 3.0
