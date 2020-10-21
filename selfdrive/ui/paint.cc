@@ -478,15 +478,12 @@ static void ui_draw_vision_event(UIState *s) {
     bool is_engaged = (s->status == STATUS_ENGAGED) && !s->scene.steerOverride;
     bool is_warning = (s->status == STATUS_WARNING);
     bool is_engageable = s->scene.controls_state.getEngageable();
-    bool is_oplong = (s->status == STATUS_ENGAGED_OPLONG);
+    //bool is_oplong = (s->status == STATUS_ENGAGED_OPLONG);
 
     if (is_engaged || is_warning || is_engageable) {
       nvgBeginPath(s->vg);
       nvgCircle(s->vg, bg_wheel_x, (bg_wheel_y + (bdr_is*1.5)), bg_wheel_size);
-      if (is_oplong) {
-        nvgFillColor(s->vg, COLOR_OPLONG);
-      }
-      else if (is_engaged) {
+      if (is_engaged) {
         nvgFillColor(s->vg, COLOR_ENGAGED);
       } else if (is_warning) {
         nvgFillColor(s->vg, COLOR_OCHRE);
@@ -495,7 +492,7 @@ static void ui_draw_vision_event(UIState *s) {
       }
       nvgFill(s->vg);
       img_wheel_alpha = 1.0f;
-    }
+    }  
     nvgSave(s->vg);
     nvgTranslate(s->vg,bg_wheel_x,(bg_wheel_y + (bdr_is*1.5)));
     nvgRotate(s->vg,-img_rotation);
