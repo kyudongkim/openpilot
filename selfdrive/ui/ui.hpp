@@ -43,7 +43,6 @@
 #define COLOR_YELLOW_ALPHA(x) nvgRGBA(255, 255, 0, x)
 #define COLOR_ENGAGED nvgRGBA(23, 134, 68, 255)
 #define COLOR_ENGAGEABLE nvgRGBA(23, 51, 73, 255)
-#define COLOR_OPLONG nvgRGBA(105, 105, 105, 105)
 
 #define UI_BUF_COUNT 4
 
@@ -83,7 +82,6 @@ typedef enum UIStatus {
   STATUS_OFFROAD,
   STATUS_DISENGAGED,
   STATUS_ENGAGED,
-  STATUS_ENGAGED_OPLONG,
   STATUS_WARNING,
   STATUS_ALERT,
 } UIStatus;
@@ -94,7 +92,6 @@ static std::map<UIStatus, NVGcolor> bg_colors = {
   {STATUS_ENGAGED, nvgRGBA(0x17, 0x86, 0x44, 0x0f)},
   {STATUS_WARNING, nvgRGBA(0xDA, 0x6F, 0x25, 0x0f)},
   {STATUS_ALERT, nvgRGBA(0xC9, 0x22, 0x31, 0xf1)},
-  {STATUS_ENGAGED_OPLONG, nvgRGBA(0x69, 0x69, 0x69, 0x0f)},
 };
 
 typedef struct UIScene {
