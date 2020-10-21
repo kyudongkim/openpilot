@@ -132,12 +132,7 @@ static void draw_lead(UIState *s, const cereal::RadarState::LeadData::Reader &le
     }
     fillAlpha = (int)(fmin(fillAlpha, 255));
   }
-  if (s->longitudinal_control) {
-    draw_chevron(s, d_rel + 3, y_rel, 25, COLOR_RED_ALPHA(fillAlpha), COLOR_YELLOW);
-  }
-  else {
-    draw_chevron(s, d_rel + 3, y_rel, 25, COLOR_RED_ALPHA(fillAlpha), COLOR_YELLOW);
-  }
+  draw_chevron(s, d_rel + 3, y_rel, 25, COLOR_RED_ALPHA(fillAlpha), COLOR_YELLOW);
 }
 
 static void ui_draw_lane_line(UIState *s, const model_path_vertices_data *pvd, NVGcolor color) {
