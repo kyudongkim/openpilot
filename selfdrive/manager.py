@@ -215,11 +215,11 @@ persistent_processes = [
 
 if not PC:
   persistent_processes += [
-    'updated',    
+    'updated',
     'logcatd',
     'tombstoned',
-    'sensord',    
-    'shutdownd',    
+    'sensord',
+    'shutdownd',
   ]
 
 car_started_processes = [
