@@ -687,7 +687,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   EventName.lowMemory: {
     ET.SOFT_DISABLE: SoftDisableAlert("메모리 부족 : EON을 재부팅하세요"),
-    ET.PERMANENT: NormalPermanentAlert("메모리 부족 : EON을 재부팅하세요"),
+    ET.PERMANENT: NormalPermanentAlert("메모리 부족", "EON을 재부팅하세요"),
     ET.NO_ENTRY : NoEntryAlert("메모리 부족 : EON을 재부팅하세요",
                                audible_alert=AudibleAlert.chimeDisengage),
   },
