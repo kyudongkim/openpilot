@@ -13,7 +13,7 @@ VisualAlert = car.CarControl.HUDControl.VisualAlert
 AudibleAlert = car.CarControl.HUDControl.AudibleAlert
 EventName = car.CarEvent.EventName
 
-# 메세지 한글화 : 로웰 ( http://crwusiz.blog.me )
+# 메세지 한글화 : 로웰 ( https://github.com/crwusiz/openpilot )
 
 # Alert priorities
 class Priority(IntEnum):
@@ -337,14 +337,6 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       Priority.LOW, VisualAlert.steerRequired, AudibleAlert.chimePrompt, 1., 2., 3.),
   },
 
-  EventName.visiononlyWarning: {
-    ET.PERMANENT: Alert(
-      "비전기반으로 사용됩니다, 차량의 AEB/SCC 는 비활성됩니다",
-      "사용에 주의하세요",
-      AlertStatus.userPrompt, AlertSize.small,
-      Priority.LOW, VisualAlert.none, AudibleAlert.chimeDingRepeat, 1., 2., 15.),
-  },
-
   # ********** events only containing alerts that display while engaged **********
 
   EventName.gasPressed: {
@@ -445,10 +437,6 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   EventName.belowSteerSpeed: {
     ET.WARNING: below_steer_speed_alert,
-  },
-
-  EventName.belowSteerSpeedDing: {
-    ET.WARNING: EngagementAlert(AudibleAlert.chimeDing),
   },
 
   EventName.preLaneChangeLeft: {
@@ -571,7 +559,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   EventName.outOfSpace: {
     ET.PERMANENT: Alert(
-      "out of storage"
+      "저장공간 부족",
       "",
       AlertStatus.normal, AlertSize.small,
       Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
@@ -622,18 +610,14 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.calibrationInvalid: {
-    ET.PERMANENT: Alert(
-      "캘리브레이션 에러",
-      "장치 위치변경 및 캘리브레이션을 다시하세요",
-      AlertStatus.normal, AlertSize.mid,
-      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
+    ET.PERMANENT: NormalPermanentAlert("캘리브레이션 에러", "장치 위치변경 및 캘리브레이션을 다시하세요"),
     ET.SOFT_DISABLE: SoftDisableAlert("캘리브레이션 에러 : 장치 위치변경 및 캘리브레이션을 다시하세요"),
     ET.NO_ENTRY: NoEntryAlert("캘리브레이션 에러 : 장치 위치변경 및 캘리브레이션을 다시하세요"),
   },
 
   EventName.calibrationIncomplete: {
-    ET.SOFT_DISABLE: SoftDisableAlert("캘리브레이션 진행중입니다"),
     ET.PERMANENT: calibration_incomplete_alert,
+    ET.SOFT_DISABLE: SoftDisableAlert("캘리브레이션 진행중입니다"),
     ET.NO_ENTRY: NoEntryAlert("캘리브레이션 진행중입니다",
                               audible_alert=AudibleAlert.chimeCalibration2, duration_sound=2.),
   },
@@ -660,14 +644,14 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.commIssue: {
-    ET.SOFT_DISABLE: SoftDisableAlert("프로세스간 통신문제"),
-    ET.NO_ENTRY: NoEntryAlert("프로세스간 통신문제",
+    ET.SOFT_DISABLE: SoftDisableAlert("시스템 프로세스 통신오류"),
+    ET.NO_ENTRY: NoEntryAlert("시스템 프로세스 통신오류",
                               audible_alert=AudibleAlert.chimeDisengage),
   },
 
   EventName.radarCommIssue: {
-    ET.SOFT_DISABLE: SoftDisableAlert("레이더 통신문제"),
-    ET.NO_ENTRY: NoEntryAlert("레이더 통신문제",
+    ET.SOFT_DISABLE: SoftDisableAlert("차량 레이더 통신오류"),
+    ET.NO_ENTRY: NoEntryAlert("차량 레이더 통신오류",
                               audible_alert=AudibleAlert.chimeDisengage),
   },
 
@@ -702,8 +686,8 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.lowMemory: {
-    ET.SOFT_DISABLE: SoftDisableAlert("Low Memory: Reboot Your Device"),
-    ET.PERMANENT: NormalPermanentAlert("Low Memory", "Reboot your Device"),
+    ET.SOFT_DISABLE: SoftDisableAlert("메모리 부족 : EON을 재부팅하세요"),
+    ET.PERMANENT: NormalPermanentAlert("메모리 부족 : EON을 재부팅하세요"),
     ET.NO_ENTRY : NoEntryAlert("메모리 부족 : EON을 재부팅하세요",
                                audible_alert=AudibleAlert.chimeDisengage),
   },
@@ -762,8 +746,8 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.relayMalfunction: {
-    ET.IMMEDIATE_DISABLE: ImmediateDisableAlert("Harness Malfunction"),
-    ET.PERMANENT: NormalPermanentAlert("Harness Malfunction", "Check Hardware"),
+    ET.IMMEDIATE_DISABLE: ImmediateDisableAlert("하네스 오작동"),
+    ET.PERMANENT: NormalPermanentAlert("하네스 오작동", "하드웨어를 점검하세요"),
     ET.NO_ENTRY: NoEntryAlert("하네스 오작동"),
   },
 
@@ -799,7 +783,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   # TODO: this is unclear, update check only happens offroad
   EventName.internetConnectivityNeeded: {
-    ET.PERMANENT: NormalPermanentAlert("인터넷을 연결하세요", "업데이트 체크후 활성화 "),
+    ET.PERMANENT: NormalPermanentAlert("인터넷을 연결하세요", "업데이트 체크후 활성화 됩니다"),
     ET.NO_ENTRY: NoEntryAlert("인터넷을 연결하세요",
                               audible_alert=AudibleAlert.chimeDisengage),
   },

@@ -370,8 +370,6 @@ static void ui_draw_vision_lanes(UIState *s) {
 static void ui_draw_world(UIState *s) {
   const UIScene *scene = &s->scene;
   
-  const int viz_w = s->fb_w - bdr_s * 2;
-  const int inner_height = float(viz_w) * s->fb_h / s->fb_w;
   nvgSave(s->vg);
   nvgScissor(s->vg, s->video_rect.x, s->video_rect.y, s->video_rect.w, s->video_rect.h);
 
@@ -439,6 +437,7 @@ static void ui_draw_vision_maxspeed(UIState *s) {
 
 static void ui_draw_vision_speed(UIState *s) {
   const Rect &viz_rect = s->scene.viz_rect;
+  const UIScene *scene = &s->scene;	
   float v_ego = s->scene.controls_state.getVEgo();
   float speed = v_ego * 2.2369363 + 0.5;
   if (s->is_metric){
@@ -854,6 +853,8 @@ static void bb_ui_draw_UI(UIState *s)
 
 static void ui_draw_vision_footer(UIState *s) {
   ui_draw_vision_face(s);
+  ui_draw_vision_brake(s);
+  bb_ui_draw_UI(s);	
 }
 
 void ui_draw_vision_alert(UIState *s, cereal::ControlsState::AlertSize va_size, UIStatus va_color,
