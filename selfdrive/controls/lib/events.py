@@ -480,9 +480,13 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.fanMalfunction: {
-    ET.PERMANENT: NormalPermanentAlert("Fan Malfunction", "Contact Support"),
+    ET.PERMANENT: NormalPermanentAlert("FAN 문제발생", "하드웨어를 점검하세요"),
   },
 
+  EventName.cameraMalfunction: {
+    ET.PERMANENT: NormalPermanentAlert("카메라 문제발생", "하드웨어를 "),
+  },  
+  
   EventName.turningIndicatorOn: {
     ET.WARNING: Alert(
       "방향지시등 동작중에는 핸들을 잡아주세요",

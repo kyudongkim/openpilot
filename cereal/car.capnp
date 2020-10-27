@@ -101,9 +101,10 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     modeldLagging @89;
     deviceFalling @90;
     fanMalfunction @91;
-    turningIndicatorOn @92;
-    lkasButtonOff @93;
-    autoLaneChange @94;
+    cameraMalfunction @92;    
+    turningIndicatorOn @93;
+    lkasButtonOff @94;
+    autoLaneChange @95;
 
     gasUnavailableDEPRECATED @3;
     dataNeededDEPRECATED @16;
