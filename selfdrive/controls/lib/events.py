@@ -484,7 +484,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.cameraMalfunction: {
-    ET.PERMANENT: NormalPermanentAlert("카메라 문제발생", "하드웨어를 "),
+    ET.PERMANENT: NormalPermanentAlert("카메라 문제발생", "하드웨어를 점검하세요"),
   },  
   
   EventName.turningIndicatorOn: {
