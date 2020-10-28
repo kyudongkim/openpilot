@@ -62,7 +62,7 @@ static void handle_display_state(UIState *s, bool user_input) {
 
     if (s->awake) {
       system("service call window 18 i32 1");
-    }    
+    }
   }
 }
 

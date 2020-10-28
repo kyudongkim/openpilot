@@ -263,6 +263,14 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       Priority.LOWER, VisualAlert.none, AudibleAlert.chimeDisengage2, 1., 0., 15.),
   },
 
+  EventName.startupGreyPanda: {
+    ET.PERMANENT: Alert(
+      "그레이 판다는 호환되지않습니다",
+      "comma two 또는 블랙판다로 업그레이드하세요",      
+      AlertStatus.userPrompt, AlertSize.mid,
+      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
+  },
+
   EventName.invalidGiraffeToyota: {
     ET.PERMANENT: Alert(
       "giraffe가 지원되지않습니다",
