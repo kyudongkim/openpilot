@@ -1,3 +1,22 @@
+crwusiz openpilot
+=====
+
+This Branch is xx979xx HKG_community base 
+
+1. ui tune
+2. kor apk update 
+3. events message kor translate
+4. NanumGothic font auto install
+5. Comma boot logo auto install
+6. Bootanimation auto install
+7. wifi ip address (neokii)
+8. Battery charge icon and battery percent
+9. apk - git pull button (jc01rho)
+10. apk - panda flash button
+11. apk - prebuilt button
+
+[![](https://i.imgur.com/NIGGbTq.png)](#)
+
 HKG Community information
 ======
 
@@ -48,7 +67,7 @@ python panda/tests/debug_console.py
 ```
 python selfdirve/debug/dump.py <category>
 ```
-  - replace `<category>` with any one of these: `health carState carControl controlsState carParams sendcan can`
+- replace `<category>` with any one of these: `health carState carControl controlsState carParams sendcan can`
 
 Changes:
 ------
@@ -62,9 +81,6 @@ To enable long control, find the option under Developer Settings in your device.
 - <b>  Disabling by LKAS button:</b> Openpilot will disable and enable steering by toggling LKAS button.
 - <b>  Setup Auto Detection:</b> Openpilot and Panda will detect MDPS, SCC and SAS buses and behaive acordingly.
 - <b>  Panda Universal Forwarding(PUF):</b> Panda will auto forwading for all CAN messages if Eon disconnected.
-
-
-
 
 Known issues
 ------
