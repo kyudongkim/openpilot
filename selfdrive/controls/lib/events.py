@@ -190,7 +190,7 @@ def calibration_incomplete_alert(CP: car.CarParams, sm: messaging.SubMaster, met
   unit = "km/h" if metric else "mph"
   return Alert(
     "캘리브레이션 진행중입니다 : %d%%" % sm['liveCalibration'].calPerc,
-    "기준속도 %d %s 이상으로 주행해주세요" % (speed, unit),
+    "속도를 %d %s 이상으로 주행해주세요" % (speed, unit),
     AlertStatus.normal, AlertSize.mid,
     Priority.LOWEST, VisualAlert.none, AudibleAlert.chimeCalibration1, 4.5, 0., .2)
 
@@ -203,7 +203,7 @@ def no_gps_alert(CP: car.CarParams, sm: messaging.SubMaster, metric: bool) -> Al
     Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2, creation_delay=300.)
 
 def wrong_car_mode_alert(CP: car.CarParams, sm: messaging.SubMaster, metric: bool) -> Alert:
-  text = "크루즈모드 비활성상태"
+  text = "크루즈 비활성상태"
   if CP.carName == "honda":
     text = "메인 스위치 OFF"
   return NoEntryAlert(text, duration_hud_alert=0.)
@@ -211,7 +211,7 @@ def wrong_car_mode_alert(CP: car.CarParams, sm: messaging.SubMaster, metric: boo
 def auto_lane_change_alert(CP, sm, metric):
   alc_timer = sm['pathPlan'].autoLaneChangeTimer
   return Alert(
-    "자동차선변경이 %d 초 뒤에 시작됩니다" % alc_timer,
+    "자동차선변경이 %d초 뒤에 시작됩니다" % alc_timer,
     "차선의 차량을 확인하세요",
     AlertStatus.normal, AlertSize.mid,
     Priority.LOW, VisualAlert.steerRequired, AudibleAlert.none, .0, .1, .1, alert_rate=0.75)
@@ -341,7 +341,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   EventName.gasPressed: {
     ET.PRE_ENABLE: Alert(
-      "가속패달사용시 오픈파일럿은 브레이크를 사용하지않습니다",
+      "가속패달감지시 오픈파일럿은 브레이크를 사용하지않습니다",
       "",
       AlertStatus.normal, AlertSize.small,
       Priority.LOWEST, VisualAlert.none, AudibleAlert.none, .0, .0, .1, creation_delay=1.),
@@ -480,11 +480,11 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.fanMalfunction: {
-    ET.PERMANENT: NormalPermanentAlert("FAN 문제발생", "하드웨어를 점검하세요"),
+    ET.PERMANENT: NormalPermanentAlert("FAN 오작동", "하드웨어를 점검하세요"),
   },
 
   EventName.cameraMalfunction: {
-    ET.PERMANENT: NormalPermanentAlert("카메라 문제발생", "하드웨어를 점검하세요"),
+    ET.PERMANENT: NormalPermanentAlert("카메라 오작동", "장치를 점검하세요"),
   },  
   
   EventName.turningIndicatorOn: {
@@ -577,11 +577,11 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   EventName.sensorDataInvalid: {
     ET.PERMANENT: Alert(
-      "EON센서데이터 오류",
-      "EON을 재부팅하세요",
+      "장치 센서 오류",
+      "장치 점검후 재가동세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2, creation_delay=1.),
-    ET.NO_ENTRY: NoEntryAlert("EON센서데이터 오류"),
+    ET.NO_ENTRY: NoEntryAlert("장치 센서 오류"),
   },
 
   EventName.noGps: {
@@ -599,12 +599,12 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   EventName.overheat: {
     ET.PERMANENT: Alert(
-      "시스템 과열됨",
+      "장치 과열됨",
       "",
       AlertStatus.normal, AlertSize.small,
       Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
-    ET.SOFT_DISABLE: SoftDisableAlert("시스템 과열됨"),
-    ET.NO_ENTRY: NoEntryAlert("시스템 과열됨"),
+    ET.SOFT_DISABLE: SoftDisableAlert("장치 과열됨"),
+    ET.NO_ENTRY: NoEntryAlert("장치 과열됨"),
   },
 
   EventName.wrongGear: {
@@ -614,9 +614,9 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.calibrationInvalid: {
-    ET.PERMANENT: NormalPermanentAlert("캘리브레이션 에러", "장치 위치변경 및 캘리브레이션을 다시하세요"),
-    ET.SOFT_DISABLE: SoftDisableAlert("캘리브레이션 에러 : 장치 위치변경 및 캘리브레이션을 다시하세요"),
-    ET.NO_ENTRY: NoEntryAlert("캘리브레이션 에러 : 장치 위치변경 및 캘리브레이션을 다시하세요"),
+    ET.PERMANENT: NormalPermanentAlert("캘리브레이션 오류", "장치 위치변경후 캘리브레이션을 다시하세요"),
+    ET.SOFT_DISABLE: SoftDisableAlert("캘리브레이션 오류 : 장치 위치변경후 캘리브레이션을 다시하세요"),
+    ET.NO_ENTRY: NoEntryAlert("캘리브레이션 오류 : 장치 위치변경후 캘리브레이션을 다시하세요"),
   },
 
   EventName.calibrationIncomplete: {
@@ -648,8 +648,8 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.commIssue: {
-    ET.SOFT_DISABLE: SoftDisableAlert("시스템 프로세스 통신오류"),
-    ET.NO_ENTRY: NoEntryAlert("시스템 프로세스 통신오류",
+    ET.SOFT_DISABLE: SoftDisableAlert("장치 프로세스 통신오류"),
+    ET.NO_ENTRY: NoEntryAlert("장치 프로세스 통신오류",
                               audible_alert=AudibleAlert.chimeDisengage),
   },
 
@@ -660,13 +660,13 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.radarCanError: {
-    ET.SOFT_DISABLE: SoftDisableAlert("레이더 에러 : 차량을 재가동하세요"),
-    ET.NO_ENTRY: NoEntryAlert("레이더 에러 : 차량을 재가동하세요"),
+    ET.SOFT_DISABLE: SoftDisableAlert("레이더 오류 : 차량을 재가동하세요"),
+    ET.NO_ENTRY: NoEntryAlert("레이더 오류 : 차량을 재가동하세요"),
   },
 
   EventName.radarFault: {
-    ET.SOFT_DISABLE: SoftDisableAlert("레이더 에러 : 차량을 재가동하세요"),
-    ET.NO_ENTRY: NoEntryAlert("레이더 에러 : 차량을 재가동하세요"),
+    ET.SOFT_DISABLE: SoftDisableAlert("레이더 오류 : 차량을 재가동하세요"),
+    ET.NO_ENTRY: NoEntryAlert("레이더 오류 : 차량을 재가동하세요"),
   },
 
   EventName.modeldLagging: {
@@ -675,7 +675,6 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.posenetInvalid: {
-    #ET.SOFT_DISABLE: SoftDisableAlert("차선인식상태가 좋지않으니 주의운전하세요"),
     ET.WARNING: Alert(
       "핸들을 잡아주세요",
       "차선인식상태가 좋지않으니 주의운전하세요",
@@ -690,9 +689,9 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.lowMemory: {
-    ET.SOFT_DISABLE: SoftDisableAlert("메모리 부족 : EON을 재부팅하세요"),
-    ET.PERMANENT: NormalPermanentAlert("메모리 부족", "EON을 재부팅하세요"),
-    ET.NO_ENTRY : NoEntryAlert("메모리 부족 : EON을 재부팅하세요",
+    ET.SOFT_DISABLE: SoftDisableAlert("메모리 부족 : 장치를 재가동하세요"),
+    ET.PERMANENT: NormalPermanentAlert("메모리 부족", "장치를 재가동하세요"),
+    ET.NO_ENTRY : NoEntryAlert("메모리 부족 : 장치를 재가동하세요",
                                audible_alert=AudibleAlert.chimeDisengage),
   },
 
@@ -706,33 +705,33 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.canError: {
-    ET.IMMEDIATE_DISABLE: ImmediateDisableAlert("CAN 에러 : 연결상태를 확인하세요"),
+    ET.IMMEDIATE_DISABLE: ImmediateDisableAlert("CAN 오류 : 하드웨어를 점검하세요"),
     ET.PERMANENT: Alert(
-      "CAN 에러 : 연결상태를 확인하세요",
+      "CAN 오류 : 하드웨어를 점검하세요",
       "",
       AlertStatus.normal, AlertSize.small,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, 0., 0., .2, creation_delay=1.),
-    ET.NO_ENTRY: NoEntryAlert("CAN 에러 : 연결상태를 확인하세요"),
+    ET.NO_ENTRY: NoEntryAlert("CAN 오류 : 하드웨어를 점검하세요"),
   },
 
   EventName.steerUnavailable: {
-    ET.IMMEDIATE_DISABLE: ImmediateDisableAlert("LKAS 에러 : 차량을 재가동하세요"),
+    ET.IMMEDIATE_DISABLE: ImmediateDisableAlert("LKAS 오류 : 차량을 재가동하세요"),
     ET.PERMANENT: Alert(
-      "LKAS 에러 : 차량을 재가동하세요",
+      "LKAS 오류 : 차량을 재가동하세요",
       "",
       AlertStatus.normal, AlertSize.small,
       Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
-    ET.NO_ENTRY: NoEntryAlert("LKAS 에러 : 차량을 재가동하세요"),
+    ET.NO_ENTRY: NoEntryAlert("LKAS 오류 : 차량을 재가동하세요"),
   },
 
   EventName.brakeUnavailable: {
-    ET.IMMEDIATE_DISABLE: ImmediateDisableAlert("크루즈 에러 : 차량을 재가동하세요"),
+    ET.IMMEDIATE_DISABLE: ImmediateDisableAlert("크루즈 오류 : 차량을 재가동하세요"),
     ET.PERMANENT: Alert(
-      "크루즈 에러 : 차량을 재가동하세요",
+      "크루즈 오류 : 차량을 재가동하세요",
       "",
       AlertStatus.normal, AlertSize.small,
       Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
-    ET.NO_ENTRY: NoEntryAlert("크루즈 에러 : 차량을 재가동하세요"),
+    ET.NO_ENTRY: NoEntryAlert("크루즈 오류 : 차량을 재가동하세요"),
   },
 
   EventName.reverseGear: {
@@ -745,8 +744,8 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.plannerError: {
-    ET.IMMEDIATE_DISABLE: ImmediateDisableAlert("플래너 솔루션 에러"),
-    ET.NO_ENTRY: NoEntryAlert("플래너 솔루션 에러"),
+    ET.IMMEDIATE_DISABLE: ImmediateDisableAlert("플래너 솔루션 오류"),
+    ET.NO_ENTRY: NoEntryAlert("플래너 솔루션 오류"),
   },
 
   EventName.relayMalfunction: {
@@ -794,10 +793,10 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   EventName.lowSpeedLockout: {
     ET.PERMANENT: Alert(
-      "크루즈 에러 : 차량을 재가동하세요",
+      "크루즈 오류 : 차량을 재가동하세요",
       "",
       AlertStatus.normal, AlertSize.small,
       Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
-    ET.NO_ENTRY: NoEntryAlert("크루즈 에러 : 차량을 재가동하세요"),
+    ET.NO_ENTRY: NoEntryAlert("크루즈 오류 : 차량을 재가동하세요"),
   },
 }
