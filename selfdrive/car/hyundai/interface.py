@@ -126,10 +126,10 @@ class CarInterface(CarInterfaceBase):
         ret.mass = 1737. + STD_CARGO_KG
         ret.wheelbase = 2.7
         ret.steerRatio = 13.73
-    elif candidate in [CAR.CADENZA, CAR.CADENZA_HEV]:      
-      ret.mass = 1575. + STD_CARGO_KG
-      ret.wheelbase = 2.85
-      ret.steerRatio = 12.5
+    elif candidate in [CAR.CADENZA, CAR.CADENZA_HEV]:
+	ret.mass = 1575. + STD_CARGO_KG
+	ret.wheelbase = 2.85
+	ret.steerRatio = 12.5
 
 # -----------------------------------------------------------------      
     ret.lateralTuning.init('lqr')
@@ -188,7 +188,7 @@ class CarInterface(CarInterfaceBase):
     ret.openpilotLongitudinalControl = Params().get('LongControlEnabled') == b'1'
     ret.enableCruise = not ret.radarOffCan
     ret.spasEnabled = False
-    
+
     # set safety_hyundai_community only for non-SCC, MDPS harrness or SCC harrness cars or cars that have unknown issue
     if ret.radarOffCan or ret.mdpsBus == 1 or ret.openpilotLongitudinalControl or ret.sccBus == 1 or Params().get('MadModeEnabled') == b'1':
       ret.safetyModel = car.CarParams.SafetyModel.hyundaiCommunity
@@ -211,22 +211,11 @@ class CarInterface(CarInterfaceBase):
     if self.mad_mode_enabled and not self.CC.longcontrol:
       ret.cruiseState.enabled = ret.cruiseState.available
 
-    # some Optima only has blinker flash signal
-#    if self.CP.carFingerprint == CAR.OPTIMA:
-#      ret.leftBlinker = self.CS.leftBlinker = bool(self.CS.left_blinker_flash or self.CS.prev_left_blinker and self.CC.turning_signal_timer)
-#      ret.rightBlinker = self.CS.rightBlinker = bool(self.CS.right_blinker_flash or self.CS.prev_right_blinker and self.CC.turning_signal_timer)
-
     # turning indicator alert logic
-#    if (ret.leftBlinker or ret.rightBlinker or self.CC.turning_signal_timer) and ret.vEgo < LANE_CHANGE_SPEED_MIN - 1.2:
-#      self.CC.turning_indicator_alert = True 
-#    else:
-#      self.CC.turning_indicator_alert = False
-
-    # LKAS button alert logic: reverse on/off
-    if bool(self.CS.lkas_button) != bool(self.CS.prev_lkas_button) and self.CS.lkas_button != 7 != self.CS.prev_lkas_button and \
-                  self.CP.carFingerprint not in [CAR.SONATA, CAR.PALISADE, CAR.SONATA_HEV, CAR.SANTA_FE, CAR.KONA_EV, CAR.NIRO_EV]:
-      self.CC.lkas_button_on = not self.CC.lkas_button_on
-      self.lkas_button_alert = not self.CC.lkas_button_on
+    if (ret.leftBlinker or ret.rightBlinker or self.CC.turning_signal_timer) and ret.vEgo < LANE_CHANGE_SPEED_MIN - 1.2:
+      self.CC.turning_indicator_alert = True
+    else:
+      self.CC.turning_indicator_alert = False
 
     # low speed steer alert hysteresis logic (only for cars with steer cut off above 10 m/s)
     if ret.vEgo < (self.CP.minSteerSpeed + 0.2) and self.CP.minSteerSpeed > 10.:
@@ -237,7 +226,7 @@ class CarInterface(CarInterfaceBase):
     buttonEvents = []
     if self.CS.cruise_buttons != self.CS.prev_cruise_buttons:
       be = car.CarState.ButtonEvent.new_message()
-      be.pressed = self.CS.cruise_buttons != 0 
+      be.pressed = self.CS.cruise_buttons != 0
       but = self.CS.cruise_buttons if be.pressed else self.CS.prev_cruise_buttons
       if but == Buttons.RES_ACCEL:
         be.type = ButtonType.accelCruise
@@ -265,9 +254,7 @@ class CarInterface(CarInterfaceBase):
       events.add(EventName.steerTempUnavailable)
     if self.low_speed_alert and not self.CS.mdps_bus:
       events.add(EventName.belowSteerSpeed)
-#    if self.CC.turning_indicator_alert:
-#      events.add(EventName.turningIndicatorOn)
-    if self.lkas_button_alert:
+    if not self.CS.lkas_button_on:
       events.add(EventName.lkasButtonOff)
     if self.mad_mode_enabled and not self.CC.longcontrol and EventName.pedalPressed in events.events:
       events.events.remove(EventName.pedalPressed)
