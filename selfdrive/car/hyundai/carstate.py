@@ -202,11 +202,11 @@ class CarState(CarStateBase):
 
       ("CF_Gway_DrvSeatBeltInd", "CGW4", 1),
 
-      ("CF_Gway_DrvSeatBeltSw", "CGW1", 0), # Driver Seatbelt
-      ("CF_Gway_DrvDrSw", "CGW1", 0),       # Driver Door is open
-      ("CF_Gway_AstDrSw", "CGW1", 0),       # Passenger door is open
-      ("CF_Gway_RLDrSw", "CGW2", 0),        # Rear reft door is open
-      ("CF_Gway_RRDrSw", "CGW2", 0),        # Rear right door is open
+      ("CF_Gway_DrvSeatBeltSw", "CGW1", 0),
+      ("CF_Gway_DrvDrSw", "CGW1", 0),       # Driver Door
+      ("CF_Gway_AstDrSw", "CGW1", 0),       # Passenger door
+      ("CF_Gway_RLDrSw", "CGW2", 0),        # Rear reft door
+      ("CF_Gway_RRDrSw", "CGW2", 0),        # Rear right door
       ("CF_Gway_TurnSigLh", "CGW1", 0),
       ("CF_Gway_TurnSigRh", "CGW1", 0),
       ("CF_Gway_ParkBrakeSw", "CGW1", 0),   # Parking Brake
