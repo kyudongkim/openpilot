@@ -264,47 +264,41 @@ FW_VERSIONS = {
   # hyundai
   CAR.SONATA: {
     (Ecu.fwdRadar, 0x7d0, None): [
+      b'\xf1\x00DN8_ SCC FHCUP      1.00 1.01 99110-L1000         ',      
       b'\xf1\x00DN8_ SCC FHCUP      1.00 1.00 99110-L0000         ',
       b'\xf1\x00DN8_ SCC F-CU-      1.00 1.00 99110-L0000         ',
     ],
     (Ecu.esp, 0x7d1, None): [
+      b'\xf1\x00DN ESC \x01 102\x19\x04\x13 58910-L1300\xf1\xa01.02',      
       b'\xf1\x8758910-L0100\xf1\x00DN ESC \x06 104\x19\x08\x01 58910-L0100\xf1\xa01.04',
     ],
     (Ecu.engine, 0x7e0, None): [
+      b'HM6M2_0a0_BD0',      
       b'\xf1\x87391162M003\xf1\xa0000F',
       b'\xf1\x87391162M003\xf1\xa00240',
     ],
     (Ecu.eps, 0x7d4, None): [
+      b'\xf1\x8756310-L1010\xf1\x00DN8 MDPS C 1.00 1.03 56310-L1010 4DNDC103\xf1\xa01.03',      
       b'\xf1\x8756310L0010\x00\xf1\x00DN8 MDPS C 1.00 1.01 56310L0010\x00 4DNAC101\xf1\xa01.01',
       b'\xf1\x8756310-L0010\xf1\x00DN8 MDPS C 1.00 1.01 56310-L0010 4DNAC101\xf1\xa01.01',
     ],
     (Ecu.fwdCamera, 0x7c4, None): [
+      b'\xf1\x00DN8 MFC  AT KOR LHD 1.00 1.02 99211-L1000 190422',      
       b'\xf1\x00DN8 MFC  AT USA LHD 1.00 1.00 99211-L0000 190716',
       b'\xf1\x00DN8 MFC  AT USA LHD 1.00 1.01 99211-L0000 191016',
     ],
     (Ecu.transmission, 0x7e1, None): [
+      b'\xf1\x00HT6TA260BLHT6TA800A1TDN8C20KS4\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00',      
       b'\xf1\x00bcsh8p54  U903\x00\x00\x00\x00\x00\x00SDN8T16NB0z{\xd4v',
     ],
   },
   CAR.SONATA_HEV: {
-    (Ecu.fwdRadar, 0x7d0, None): [
-      b'\xf1\x00DNhe SCC FHCUP      1.00 1.02 99110-L5000         ',
-    ],
-    (Ecu.esp, 0x7d1, None): [
-      b'\xf1\x8758910-L0100\xf1\x00DN ESC \x06 104\x19\x08\x01 58910-L0100\xf1\xa01.04',
-    ],
-    (Ecu.engine, 0x7e0, None): [
-      b'\xf1\x87391062J002\xf1\xa0000P',
-    ],
-    (Ecu.eps, 0x7d4, None): [
-      b'\xf1\x8756310-L5500\xf1\x00DN8 MDPS C 1.00 1.02 56310-L5500 4DNHC102\xf1\xa01.02',
-    ],
-    (Ecu.fwdCamera, 0x7c4, None): [
-      b'\xf1\x00DN8HMFC  AT USA LHD 1.00 1.04 99211-L1000 191016',
-    ],
-    (Ecu.transmission, 0x7e1, None): [
-      b'\xf1\x00PSBG2323  E09\x00\x00\x00\x00\x00\x00\x00TDN2H20SA5\x97R\x88\x9e',
-    ],
+    (Ecu.fwdRadar, 0x7d0, None): [b'\xf1\x00DNhe SCC FHCUP      1.00 1.02 99110-L5000         ',],
+    (Ecu.esp, 0x7d1, None): [b'\xf1\x8758910-L0100\xf1\x00DN ESC \x06 104\x19\x08\x01 58910-L0100\xf1\xa01.04',],
+    (Ecu.engine, 0x7e0, None): [b'\xf1\x87391062J002\xf1\xa0000P', ],
+    (Ecu.eps, 0x7d4, None): [b'\xf1\x8756310-L5500\xf1\x00DN8 MDPS C 1.00 1.02 56310-L5500 4DNHC102\xf1\xa01.02',],
+    (Ecu.fwdCamera, 0x7c4, None): [b'\xf1\x00DN8HMFC  AT USA LHD 1.00 1.04 99211-L1000 191016',],
+    (Ecu.transmission, 0x7e1, None): [b'\xf1\x00PSBG2323  E09\x00\x00\x00\x00\x00\x00\x00TDN2H20SA5\x97R\x88\x9e',],
   },
   CAR.KONA: {
     (Ecu.fwdRadar, 0x7d0, None): [b'\xf1\x00OS__ SCC F-CUP      1.00 1.00 95655-J9200         \xf1\xa01.00', ],
@@ -356,8 +350,8 @@ FW_VERSIONS = {
   CAR.PALISADE: {
     (Ecu.fwdRadar, 0x7d0, None): [
       b'\xf1\x00LX2_ SCC FHCUP      1.00 1.04 99110-S8100         \xf1\xa01.04',
-      b'\xf1\x00LX2 SCC FHCUP      1.00 1.04 99110-S8100         \xf1\xa01.04',
-      b'\xf1\x00LX2_ SCC FHCUP 1.00 1.04 99110-S8100 \xf1\xa01.04',
+      b'\xf1\x00LX2  SCC FHCUP      1.00 1.04 99110-S8100         \xf1\xa01.04',
+      b'\xf1\x00LX2_ SCC FHCUP      1.00 1.04 99110-S8100         \xf1\xa01.04',
     ],
     (Ecu.esp, 0x7d1, None): [
       b'\xf1\x00LX ESC \v 102\x19\x05\a 58910-S8330\xf1\xa01.02',
@@ -369,9 +363,7 @@ FW_VERSIONS = {
       b'\xf1\x81640J0051\x00\x00\x00\x00\x00\x00\x00\x00',
       b'\xf1\x81640K0051\x00\x00\x00\x00\x00\x00\x00\x00',
     ],
-    (Ecu.eps, 0x7d4, None): [
-      b'\xf1\x00LX2 MDPS C 1.00 1.03 56310-S8020 4LXDC103',
-    ],
+    (Ecu.eps, 0x7d4, None): [b'\xf1\x00LX2 MDPS C 1.00 1.03 56310-S8020 4LXDC103',],
     (Ecu.fwdCamera, 0x7c4, None): [
       b'\xf1\x00LX2 MFC  AT USA LHD 1.00 1.03 99211-S8100 190125',
       b'\xf1\x00LX2 MFC  AT USA LHD 1.00 1.05 99211-S8100 190909',
