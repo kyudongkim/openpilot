@@ -27,9 +27,9 @@ if [ ! -f "/system/fonts/NanumGothic.ttf" ]; then
         fi
     
     echo =================================================================
-    echo Kor NanumGothic font install complete
+    echo Ko-KR NanumGothic font install complete
     echo Bootanimation change complete
-    echo Kor locale change complete
+    echo Ko-KR locale change complete
     echo Comma boot logo change complete
     echo Reboot Now..!!
     echo =================================================================
