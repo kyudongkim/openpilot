@@ -504,11 +504,11 @@ static void ui_draw_vision_event(UIState *s) {
       nvgBeginPath(s->vg);
       nvgCircle(s->vg, bg_wheel_x, (bg_wheel_y + (bdr_is*1.5)), bg_wheel_size);
       if (is_engaged) {
-        nvgFillColor(s->vg, COLOR_ENGAGED_ALPHA(200));
+        nvgFillColor(s->vg, COLOR_ENGAGED_ALPHA(50));
       } else if (is_warning) {
-        nvgFillColor(s->vg, COLOR_WARNING_ALPHA(200));
+        nvgFillColor(s->vg, COLOR_WARNING_ALPHA(50));
       } else if (is_engageable) {
-        nvgFillColor(s->vg, COLOR_ENGAGEABLE_ALPHA(200));
+        nvgFillColor(s->vg, COLOR_ENGAGEABLE_ALPHA(50));
       }
       nvgFill(s->vg);
       img_wheel_alpha = 1.0f;
