@@ -126,7 +126,7 @@ static void draw_lead(UIState *s, const cereal::RadarState::LeadData::Reader &le
   float leadBuff = 40.;
   float d_rel = lead.getDRel();
   float v_rel = lead.getVRel();
-  float y_rel = lead.getYRel();	
+  float y_rel = lead.getYRel(); 
   if (d_rel < leadBuff) {
     fillAlpha = 255*(1.0-(d_rel/leadBuff));
     if (v_rel < 0) {
@@ -233,7 +233,7 @@ static void ui_draw_track(UIState *s, bool is_mpc, track_vertices_data *pvd) {
     // Draw colored MPC track
     if (s->scene.steerOverride) {
       track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
-			           COLOR_ENGAGEABLE, COLOR_ENGAGEABLE_ALPHA(50));
+                 COLOR_ENGAGEABLE, COLOR_ENGAGEABLE_ALPHA(50));
     } else {
       track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
                                    COLOR_ENGAGED, COLOR_ENGAGED_ALPHA(50));
@@ -245,24 +245,8 @@ static void ui_draw_track(UIState *s, bool is_mpc, track_vertices_data *pvd) {
   }
   nvgFillPaint(s->vg, track_bg);
   nvgFill(s->vg);
-}	
-/*
-  NVGpaint track_bg;
-  if (is_mpc) {
-    // Draw colored MPC track
-    const NVGcolor clr = bg_colors[s->status];
-    track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
-                                 nvgRGBA(clr.r, clr.g, clr.b, 255), nvgRGBA(clr.r, clr.g, clr.b, 255/2));
-  } else {
-    // Draw white vision track
-    track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
-                                 COLOR_WHITE, COLOR_WHITE_ALPHA(0));
-  }
-  nvgFillPaint(s->vg, track_bg);
-  nvgFill(s->vg);
-}
-*/
-	
+} 
+  
 static void draw_frame(UIState *s) {
   mat4 *out_mat;
   if (s->scene.frontview) {
@@ -423,11 +407,11 @@ static void ui_draw_vision_maxspeed(UIState *s) {
 
   nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
   const int text_x = viz_maxspeed_x + (viz_maxspeed_xo / 2) + (viz_maxspeed_w / 2);
-  ui_draw_text(s->vg, text_x, 110, "설정속도", 20 * 2.5, COLOR_WHITE_ALPHA(is_cruise_set ? 200 : 100), s->font_sans_regular);
+  ui_draw_text(s->vg, text_x, 110, "설정속도", 45, COLOR_WHITE_ALPHA(is_cruise_set ? 200 : 100), s->font_sans_regular);
 
   if (is_cruise_set) {
     snprintf(maxspeed_str, sizeof(maxspeed_str), "%d", maxspeed_calc);
-    ui_draw_text(s->vg, text_x, 210, maxspeed_str, 43 * 2.5, COLOR_WHITE, s->font_sans_bold);
+    ui_draw_text(s->vg, text_x, 210, maxspeed_str, 40 * 2.5, COLOR_WHITE, s->font_sans_bold);
   } else {
     ui_draw_text(s->vg, text_x, 210, "-", 40 * 2.5, COLOR_WHITE_ALPHA(100), s->font_sans_semibold);
   }
@@ -435,7 +419,7 @@ static void ui_draw_vision_maxspeed(UIState *s) {
 
 static void ui_draw_vision_speed(UIState *s) {
   const Rect &viz_rect = s->scene.viz_rect;
-  const UIScene *scene = &s->scene;	
+  const UIScene *scene = &s->scene; 
   float v_ego = s->scene.controls_state.getVEgo();
   float speed = v_ego * 2.2369363 + 0.5;
   if (s->is_metric){
@@ -445,7 +429,7 @@ static void ui_draw_vision_speed(UIState *s) {
   const int viz_speed_x = viz_rect.centerX() - viz_speed_w/2;
   char speed_str[32];
 
-  // turning blinker from kegman
+  // turning blinker
   if(scene->leftBlinker) {
     nvgBeginPath(s->vg);
     nvgMoveTo(s->vg, viz_speed_x, viz_rect.y + header_h/4);
@@ -488,7 +472,7 @@ static void ui_draw_vision_event(UIState *s) {
     ui_draw_image(s->vg, viz_event_x - (img_turn_size / 4), viz_event_y + bdr_is - 25, img_turn_size, img_turn_size, s->img_turn, 1.0f);
   } else {
     // draw steering wheel
-    const int bg_wheel_size = 90;
+    const int bg_wheel_size = 100;
     const int bg_wheel_x = viz_event_x + (viz_event_w-bg_wheel_size);
     const int bg_wheel_y = viz_event_y + (bg_wheel_size/2);
     const int img_wheel_size = bg_wheel_size*1.5;
@@ -518,7 +502,7 @@ static void ui_draw_vision_event(UIState *s) {
     nvgRotate(s->vg,-img_rotation);
     nvgBeginPath(s->vg);
     NVGpaint imgPaint = nvgImagePattern(s->vg, img_wheel_x-bg_wheel_x, img_wheel_y-(bg_wheel_y + (bdr_is*1.5)),
-	img_wheel_size, img_wheel_size, 0, s->img_wheel, img_wheel_alpha);
+                                        img_wheel_size, img_wheel_size, 0, s->img_wheel, img_wheel_alpha);
     nvgRect(s->vg, img_wheel_x-bg_wheel_x, img_wheel_y-(bg_wheel_y + (bdr_is*1.5)), img_wheel_size, img_wheel_size);
     nvgFillPaint(s->vg, imgPaint);
     nvgFill(s->vg);
@@ -630,39 +614,116 @@ static void ui_draw_vision_header(UIState *s) {
 }
 
 //BB START: functions added for the display of various items
-static int bb_ui_draw_measure(UIState *s,  const char* bb_value, const char* bb_uom, const char* bb_label,
-    int bb_x, int bb_y, int bb_uom_dx,
-    NVGcolor bb_valueColor, NVGcolor bb_labelColor, NVGcolor bb_uomColor,
-    int bb_valueFontSize, int bb_labelFontSize, int bb_uomFontSize )  {
+
+static void bb_ui_draw_tpms(UIState *s) {
+  char tpmsFl[32];
+  char tpmsFr[32];
+  char tpmsRl[32];
+  char tpmsRr[32];
+  int viz_tpms_w = 250;
+  int viz_tpms_h = 160;
+  int viz_tpms_x = s->scene.viz_rect.x + s->scene.viz_rect.w - 510;
+  int viz_tpms_y = s->scene.viz_rect.y + (bdr_is*1.5) + 820;
+  float maxv = 0;
+  float minv = 300;
+
+  if (maxv < s->scene.tpmsPressureFl) {
+    maxv = s->scene.tpmsPressureFl;
+  }
+  if (maxv < s->scene.tpmsPressureFr) {
+    maxv = s->scene.tpmsPressureFr;
+  }
+  if (maxv < s->scene.tpmsPressureRl) {
+    maxv = s->scene.tpmsPressureRl;
+  }
+  if (maxv < s->scene.tpmsPressureRr) {
+    maxv = s->scene.tpmsPressureRr;
+  }
+  if (minv > s->scene.tpmsPressureFl) {
+    minv = s->scene.tpmsPressureFl;
+  }
+  if (minv > s->scene.tpmsPressureFr) {
+    minv = s->scene.tpmsPressureFr;
+  }
+  if (minv > s->scene.tpmsPressureRl) {
+    minv = s->scene.tpmsPressureRl;
+  }
+  if (minv > s->scene.tpmsPressureRr) {
+    minv = s->scene.tpmsPressureRr;
+  }
+
+  // Draw Background
+  if ((maxv - minv) > 3) {
+    ui_draw_rect(s->vg, viz_tpms_x, viz_tpms_y, viz_tpms_w, viz_tpms_h, COLOR_RED_ALPHA(80), 20);    
+  } else {
+    ui_draw_rect(s->vg, viz_tpms_x, viz_tpms_y, viz_tpms_w, viz_tpms_h, COLOR_BLACK_ALPHA(80), 20);
+  }
+
+  // Draw Border
+  NVGcolor color = COLOR_WHITE_ALPHA(100);
+  ui_draw_rect(s->vg, viz_tpms_x, viz_tpms_y, viz_tpms_w, viz_tpms_h, color, 20, 5);
+
   nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
-  int dx = 0;
-  if (strlen(bb_uom) > 0) {
-    dx = (int)(bb_uomFontSize*2.5/2);
-   }
+  const int pos_x = viz_tpms_x + (viz_tpms_w / 2);
+  const int pos_y = 155 + 820;
+  const int pos_move = 50;
+  const int fontsize = 50;
+
+  ui_draw_text(s->vg, pos_x, pos_y+pos_move, "TPMS (psi)", fontsize-10, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
+  snprintf(tpmsFl, sizeof(tpmsFl), "%.1f", s->scene.tpmsPressureFl);
+  snprintf(tpmsFr, sizeof(tpmsFr), "%.1f", s->scene.tpmsPressureFr);
+  snprintf(tpmsRl, sizeof(tpmsRl), "%.1f", s->scene.tpmsPressureRl);
+  snprintf(tpmsRr, sizeof(tpmsRr), "%.1f", s->scene.tpmsPressureRr);
+  if (s->scene.tpmsPressureFl < 34) {
+    ui_draw_text(s->vg, pos_x-pos_move, pos_y-pos_move, tpmsFl, fontsize, COLOR_RED, s->font_sans_bold);
+  } else if (s->scene.tpmsPressureFl > 50) {
+    ui_draw_text(s->vg, pos_x-pos_move, pos_y-pos_move, "N/A", fontsize, COLOR_WHITE_ALPHA(200), s->font_sans_semibold);
+  } else {
+    ui_draw_text(s->vg, pos_x-pos_move, pos_y-pos_move, tpmsFl, fontsize, COLOR_WHITE_ALPHA(200), s->font_sans_semibold);
+  }
+  if (s->scene.tpmsPressureFr < 34) {
+    ui_draw_text(s->vg, pos_x+pos_move, pos_y-pos_move, tpmsFr, fontsize, COLOR_RED, s->font_sans_bold);
+  } else if (s->scene.tpmsPressureFr > 50) {
+    ui_draw_text(s->vg, pos_x+pos_move, pos_y-pos_move, "N/A", fontsize, COLOR_WHITE_ALPHA(200), s->font_sans_semibold);
+  } else {
+    ui_draw_text(s->vg, pos_x+pos_move, pos_y-pos_move, tpmsFr, fontsize, COLOR_WHITE_ALPHA(200), s->font_sans_semibold);
+  }
+  if (s->scene.tpmsPressureRl < 34) {
+    ui_draw_text(s->vg, pos_x-pos_move, pos_y, tpmsRl, fontsize, COLOR_RED, s->font_sans_bold);
+  } else if (s->scene.tpmsPressureRl > 50) {
+    ui_draw_text(s->vg, pos_x-pos_move, pos_y, "N/A", fontsize, COLOR_WHITE_ALPHA(200), s->font_sans_semibold);
+  } else {
+    ui_draw_text(s->vg, pos_x-pos_move, pos_y, tpmsRl, fontsize, COLOR_WHITE_ALPHA(200), s->font_sans_semibold);
+  }
+  if (s->scene.tpmsPressureRr < 34) {
+    ui_draw_text(s->vg, pos_x+pos_move, pos_y, tpmsRr, fontsize, COLOR_RED, s->font_sans_bold);
+  } else if (s->scene.tpmsPressureRr > 50) {
+    ui_draw_text(s->vg, pos_x+pos_move, pos_y, "N/A", fontsize, COLOR_WHITE_ALPHA(200), s->font_sans_semibold);
+  } else {
+    ui_draw_text(s->vg, pos_x+pos_move, pos_y, tpmsRr, fontsize, COLOR_WHITE_ALPHA(200), s->font_sans_semibold);
+  }
+}
+
+static int bb_ui_draw_measure(UIState *s, const char* bb_value, const char* bb_label,
+			      int bb_x, int bb_y,
+			      NVGcolor bb_valueColor, NVGcolor bb_labelColor,
+			      int bb_valueFontSize, int bb_labelFontSize) 
+{
+  nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
+
   //print value
   nvgFontFace(s->vg, "sans-semibold");
-  nvgFontSize(s->vg, bb_valueFontSize*2.5);
+  nvgFontSize(s->vg, bb_valueFontSize);
   nvgFillColor(s->vg, bb_valueColor);
-  nvgText(s->vg, bb_x-dx/2, bb_y+ (int)(bb_valueFontSize*2.5)+5, bb_value, NULL);
+  nvgText(s->vg, bb_x, bb_y+ (int)(bb_valueFontSize), bb_value, NULL);
+
   //print label
   nvgFontFace(s->vg, "sans-regular");
-  nvgFontSize(s->vg, bb_labelFontSize*2.5);
+  nvgFontSize(s->vg, bb_labelFontSize);
   nvgFillColor(s->vg, bb_labelColor);
-  nvgText(s->vg, bb_x, bb_y + (int)(bb_valueFontSize*2.5)+5 + (int)(bb_labelFontSize*2.5)+5, bb_label, NULL);
-  //print uom
-  if (strlen(bb_uom) > 0) {
-      nvgSave(s->vg);
-    int rx =bb_x + bb_uom_dx + bb_valueFontSize -3;
-    int ry = bb_y + (int)(bb_valueFontSize*2.5/2)+25;
-    nvgTranslate(s->vg,rx,ry);
-    nvgRotate(s->vg, -1.5708); //-90deg in radians
-    nvgFontFace(s->vg, "sans-bold");
-    nvgFontSize(s->vg, (int)(bb_uomFontSize*2.5));
-    nvgFillColor(s->vg, bb_uomColor);
-    nvgText(s->vg, 0, 0, bb_uom, NULL);
-    nvgRestore(s->vg);
-  }
-  return (int)((bb_valueFontSize + bb_labelFontSize)*2.5) + 5;
+  nvgText(s->vg, bb_x, bb_y + (int)(bb_valueFontSize) + (int)(bb_labelFontSize), bb_label, NULL);
+
+  return (int)((bb_valueFontSize + bb_labelFontSize));
 }
 
 static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w ) {
@@ -671,161 +732,136 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
   int bb_ry = bb_y;
   int bb_h = 5;
   NVGcolor lab_color = COLOR_WHITE_ALPHA(200);
-  NVGcolor uom_color = COLOR_WHITE_ALPHA(200);
-  int value_fontSize=28;
-  int label_fontSize=15;
-  int uom_fontSize = 15;
-  int bb_uom_dx =  (int)(bb_w /2 - uom_fontSize*2.5) ;
+  int value_fontSize=77;
+  int label_fontSize=35;
 
-  //add CPU temperature
+  //add CPU temperature average
   if (true) {
     char val_str[16];
-    char uom_str[6];    
     NVGcolor val_color = COLOR_GREEN_ALPHA(200);
       //show Orange if more than 70°C
-      //show red if more than 80°C
       if((int)((scene->cpuTempAvg)) >= 70) {
         val_color = COLOR_ORANGE_ALPHA(200);
       }
+      //show Red if more than 80°C	  
       if((int)((scene->cpuTempAvg)) >= 80) {
         val_color = COLOR_RED_ALPHA(200);
       }
     snprintf(val_str, sizeof(val_str), "%.0f°C", (round((scene->cpuTempAvg))));
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "CPU 온도",
-        bb_rx, bb_ry, bb_uom_dx,
-        val_color, lab_color, uom_color,
-        value_fontSize, label_fontSize, uom_fontSize );
+    bb_h += bb_ui_draw_measure(s, val_str, "CPU 온도",
+			       bb_rx, bb_ry,
+			       val_color, lab_color,
+			       value_fontSize, label_fontSize);
     bb_ry = bb_y + bb_h;
   }
 
   //add visual radar relative distance
   if (true) {
     char val_str[16];
-    char uom_str[6];
     NVGcolor val_color = COLOR_WHITE_ALPHA(200);
     if (s->scene.lead_status) {
-      //show RED if less than 5 meters
-      //show orange if less than 15 meters
+      //show Orange if less than 15 meters
       if((int)(s->scene.lead_d_rel) < 15) {
         val_color = COLOR_ORANGE_ALPHA(200);
       }
+      //show Red if less than 5 meters	    
       if((int)(s->scene.lead_d_rel) < 5) {
         val_color = COLOR_RED_ALPHA(200);
       }
-      // lead car relative distance is always in meters
-      snprintf(val_str, sizeof(val_str), "%d", (int)s->scene.lead_d_rel);
+      snprintf(val_str, sizeof(val_str), "%dm", (int)s->scene.lead_d_rel);
     } else {
        snprintf(val_str, sizeof(val_str), "-");
     }
-    snprintf(uom_str, sizeof(uom_str), "m");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "앞차 거리차",
-        bb_rx, bb_ry, bb_uom_dx,
-        val_color, lab_color, uom_color,
-        value_fontSize, label_fontSize, uom_fontSize );
+    bb_h += bb_ui_draw_measure(s, val_str, "앞차 거리차",
+			       bb_rx, bb_ry,
+			       val_color, lab_color,
+			       value_fontSize, label_fontSize);
     bb_ry = bb_y + bb_h;
   }
 
   //add visual radar relative speed
   if (true) {
     char val_str[16];
-    char uom_str[6];
     NVGcolor val_color = COLOR_WHITE_ALPHA(200);
     if (s->scene.lead_status) {
-      //show Orange if negative speed (approaching)
-      //show Orange if negative speed faster than 5mph (approaching fast)
+      //show Orange if negative speed
       if((int)(s->scene.lead_v_rel) < 0) {
         val_color = COLOR_ORANGE_ALPHA(200);
       }
+      //show Red if positive speed
       if((int)(s->scene.lead_v_rel) < -5) {
         val_color = COLOR_RED_ALPHA(200);
       }
-      // lead car relative speed is always in meters
-      if (s->is_metric) {
-         snprintf(val_str, sizeof(val_str), "%d", (int)(s->scene.lead_v_rel * 3.6 + 0.5));
-      } else {
-         snprintf(val_str, sizeof(val_str), "%d", (int)(s->scene.lead_v_rel * 2.2374144 + 0.5));
-      }
+      snprintf(val_str, sizeof(val_str), "%dkm", (int)(s->scene.lead_v_rel * 3.6 + 0.5));
     } else {
        snprintf(val_str, sizeof(val_str), "-");
     }
-    if (s->is_metric) {
-      snprintf(uom_str, sizeof(uom_str), "km/h");;
-    } else {
-      snprintf(uom_str, sizeof(uom_str), "mi/h");
-    }
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "앞차 속도차",
-        bb_rx, bb_ry, bb_uom_dx,
-        val_color, lab_color, uom_color,
-        value_fontSize, label_fontSize, uom_fontSize );
+    bb_h +=bb_ui_draw_measure(s, val_str, "앞차 속도차",
+			      bb_rx, bb_ry,
+			      val_color, lab_color,
+			      value_fontSize, label_fontSize);
     bb_ry = bb_y + bb_h;
   }
 
   //add steering angle
   if (true) {
     char val_str[16];
-    char uom_str[6];
     NVGcolor val_color = COLOR_GREEN_ALPHA(200);
       //show Orange if more than 30 degrees
-      //show red if  more than 50 degrees
       if(((int)(s->scene.angleSteers) < -30) || ((int)(scene->angleSteers) > 30)) {
         val_color = COLOR_ORANGE_ALPHA(200);
       }
+      //show Red if more than 50 degrees	  
       if(((int)(s->scene.angleSteers) < -50) || ((int)(scene->angleSteers) > 50)) {
         val_color = COLOR_RED_ALPHA(200);
       }
       // steering is in degrees
-      snprintf(val_str, sizeof(val_str), "%.1f",(s->scene.angleSteers));
-
-      snprintf(uom_str, sizeof(uom_str), "");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "핸들 조향각",
-        bb_rx, bb_ry, bb_uom_dx,
-        val_color, lab_color, uom_color,
-        value_fontSize, label_fontSize, uom_fontSize );
+      snprintf(val_str, sizeof(val_str), "%.1f°",(s->scene.angleSteers));
+    bb_h += bb_ui_draw_measure(s, val_str, "핸들 조향각",
+			       bb_rx, bb_ry,
+			       val_color, lab_color,
+			       value_fontSize, label_fontSize);
     bb_ry = bb_y + bb_h;
   }
 
   //add desired steering angle
   if (true) {
     char val_str[16];
-    char uom_str[6];
     NVGcolor val_color = COLOR_WHITE_ALPHA(200);
     if (scene->controls_state.getEnabled()) {
       //show Orange if more than 30 degrees
-      //show red if  more than 50 degrees
       if(((int)(s->scene.angleSteersDes) < -30) || ((int)(scene->angleSteersDes) > 30)) {
-        val_color = COLOR_WHITE_ALPHA(200);
+        val_color = COLOR_ORANGE_ALPHA(200);
       }
+      //show Red if more than 50 degrees	    
       if(((int)(s->scene.angleSteersDes) < -50) || ((int)(scene->angleSteersDes) > 50)) {
-        val_color = COLOR_WHITE_ALPHA(200);
+        val_color = COLOR_RED_ALPHA(200);
       }
       // steering is in degrees
-      snprintf(val_str, sizeof(val_str), "%.1f",(s->scene.angleSteersDes));
+      snprintf(val_str, sizeof(val_str), "%.1f°",(s->scene.angleSteersDes));
     } else {
        snprintf(val_str, sizeof(val_str), "-");
     }
-      snprintf(uom_str, sizeof(uom_str), "");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "OP 조향각",
-        bb_rx, bb_ry, bb_uom_dx,
-        val_color, lab_color, uom_color,
-        value_fontSize, label_fontSize, uom_fontSize );
+    bb_h += bb_ui_draw_measure(s, val_str, "OP 조향각",
+			       bb_rx, bb_ry,
+			       val_color, lab_color,
+			       value_fontSize, label_fontSize);
     bb_ry = bb_y + bb_h;
   }
 
   //add steerratio liveParameters
   if (true) {
     char val_str[16];
-    char uom_str[6];
     NVGcolor val_color = COLOR_WHITE_ALPHA(200);
     if (scene->controls_state.getEnabled()) {
       snprintf(val_str, sizeof(val_str), "%.2f",(s->scene.steerRatio));
     } else {
        snprintf(val_str, sizeof(val_str), "-");
     }
-      snprintf(uom_str, sizeof(uom_str), "");
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "Steerratio",
-        bb_rx, bb_ry, bb_uom_dx,
-        val_color, lab_color, uom_color,
-        value_fontSize, label_fontSize, uom_fontSize );
+    bb_h += bb_ui_draw_measure(s, val_str, "Steerratio",
+			       bb_rx, bb_ry,
+			       val_color, lab_color,
+			       value_fontSize, label_fontSize);
     bb_ry = bb_y + bb_h;
   }
   
@@ -842,9 +878,9 @@ static void bb_ui_draw_UI(UIState *s)
 {
   const int bb_dmr_w = 180;
   const int bb_dmr_x = 70 + 1840 - bb_dmr_w - (bdr_is * 2);
-  const int bb_dmr_y = (s->scene.viz_rect.y + (bdr_is * 1.5)) + 220;
+  const int bb_dmr_y = (s->scene.viz_rect.y + (bdr_is * 1.5)) + 280;
 
-  bb_ui_draw_measures_right(s, bb_dmr_x, bb_dmr_y-20, bb_dmr_w);
+  bb_ui_draw_measures_right(s, bb_dmr_x, bb_dmr_y, bb_dmr_w);
 }
 
 //BB END: functions added for the display of various items
@@ -852,7 +888,8 @@ static void bb_ui_draw_UI(UIState *s)
 static void ui_draw_vision_footer(UIState *s) {
   ui_draw_vision_face(s);
   ui_draw_vision_brake(s);
-  bb_ui_draw_UI(s);	
+  bb_ui_draw_UI(s);
+  bb_ui_draw_tpms(s); 
 }
 
 void ui_draw_vision_alert(UIState *s, cereal::ControlsState::AlertSize va_size, UIStatus va_color,

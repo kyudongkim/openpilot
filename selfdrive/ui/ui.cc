@@ -265,6 +265,10 @@ void update_sockets(UIState *s) {
     scene.rightBlinker = data.getRightBlinker();
     scene.leftblindspot = data.getLeftBlindspot();
     scene.rightblindspot = data.getRightBlindspot();
+    scene.tpmsPressureFl = data.getTpmsPressureFl();
+    scene.tpmsPressureFr = data.getTpmsPressureFr();
+    scene.tpmsPressureRl = data.getTpmsPressureRl();
+    scene.tpmsPressureRr = data.getTpmsPressureRr();    
   } 
 
   if (sm.updated("sensorEvents")) {
