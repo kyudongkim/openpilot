@@ -143,10 +143,10 @@ typedef struct UIScene {
   float steerRatio;
   float output_scale;
   float cpuTempAvg;
-  float tpmsPressureFl;
-  float tpmsPressureFr;
-  float tpmsPressureRl;
-  float tpmsPressureRr;
+  float tpmsFl;
+  float tpmsFr;
+  float tpmsRl;
+  float tpmsRr;
 
   char batteryStatus[64];
 
