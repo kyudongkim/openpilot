@@ -36,14 +36,14 @@ static void ui_draw_sidebar_battery_icon(UIState *s) {
   const int battery_img_y = 245;
   const int battery_img_w = 220;
   const int battery_img_h = 65;
-  
+
   int battery_img = s->scene.thermal.getBatteryStatus() == "Charging" ? s->img_battery_charging : s->img_battery;
   ui_draw_image(s->vg, battery_img_x, battery_img_y, battery_img_w, battery_img_h, battery_img, 1.0f);
 }
 
 static void ui_draw_sidebar_battery_per(UIState *s) {
   const int battery_per_x = 100;
-  const int battery_per_y = 277;  
+  const int battery_per_y = 277;
   const int battery_per_w = 100;
 
   char battery_str[5];

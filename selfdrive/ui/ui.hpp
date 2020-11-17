@@ -125,7 +125,7 @@ typedef struct UIScene {
   std::string alert_text2;
   std::string alert_type;
   cereal::ControlsState::AlertSize alert_size;
-  
+
   // ui add
   bool leftBlinker;
   bool leftblindspot;
@@ -134,10 +134,10 @@ typedef struct UIScene {
   bool brakeLights;
   bool steerOverride;
   bool batteryCharging;
-  
+
   int blinker_blinkingrate;
   int batteryPercent;
-    
+
   float angleSteers;
   float angleSteersDes;
   float steerRatio;
@@ -146,8 +146,8 @@ typedef struct UIScene {
   float tpmsPressureFl;
   float tpmsPressureFr;
   float tpmsPressureRl;
-  float tpmsPressureRr;  
-  
+  float tpmsPressureRr;
+
   char batteryStatus[64];
 
   cereal::HealthData::HwType hwType;
@@ -237,7 +237,7 @@ typedef struct UIState {
 
   bool alert_blinked;
   float alert_blinking_alpha;
-  
+
   bool livempc_or_radarstate_changed;
 
   track_vertices_data track_vertices[2];

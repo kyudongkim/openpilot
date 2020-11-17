@@ -189,7 +189,7 @@ managed_processes = {
   "dmonitoringmodeld": ("selfdrive/modeld", ["./dmonitoringmodeld"]),
   "modeld": ("selfdrive/modeld", ["./modeld"]),
   "rtshield": "selfdrive.rtshield",
-  "shutdownd": "selfdrive.shutdownd",  
+  "shutdownd": "selfdrive.shutdownd",
 }
 
 daemon_processes = {
@@ -223,7 +223,7 @@ if not PC:
     'logcatd',
     'tombstoned',
     'sensord',
-    'shutdownd',    
+    'shutdownd',
   ]
 
 car_started_processes = [

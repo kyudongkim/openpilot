@@ -39,7 +39,7 @@ def process_hud_alert(enabled, fingerprint, visual_alert, left_lane,
   # initialize to no line visible
   sys_state = 1
   if left_lane and right_lane or sys_warning:  #HUD alert only display when LKAS status is active
-    sys_state = 3 if enabled or sys_warning else 4      
+    sys_state = 3 if enabled or sys_warning else 4
   elif left_lane:
     sys_state = 5
   elif right_lane:
@@ -59,7 +59,7 @@ def process_hud_alert(enabled, fingerprint, visual_alert, left_lane,
 class CarController():
   def __init__(self, dbc_name, CP, VM):
     self.p = SteerLimitParams(CP)
-    self.packer = CANPacker(dbc_name)    
+    self.packer = CANPacker(dbc_name)
     self.car_fingerprint = CP.carFingerprint
     self.accel_steady = 0
     self.apply_steer_last = 0

@@ -17,7 +17,7 @@ class CarInterface(CarInterfaceBase):
     self.cp2 = self.CS.get_can2_parser(CP)
     self.mad_mode_enabled = Params().get('MadModeEnabled') == b'1' # only for non-SCC cars
     self.lkas_button_alert = False
-    
+
   @staticmethod
   def compute_gb(accel, speed):
     return float(accel) / 3.0
@@ -131,7 +131,7 @@ class CarInterface(CarInterfaceBase):
         ret.wheelbase = 2.85
         ret.steerRatio = 12.5
 
-# -----------------------------------------------------------------      
+# -----------------------------------------------------------------
     ret.lateralTuning.init('lqr')
 
     ret.lateralTuning.lqr.scale = 1700.0
@@ -142,7 +142,7 @@ class CarInterface(CarInterfaceBase):
     ret.lateralTuning.lqr.c = [1., 0.]
     ret.lateralTuning.lqr.k = [-105.0, 450.0]
     ret.lateralTuning.lqr.l = [0.22, 0.318]
-    ret.lateralTuning.lqr.dcGain = 0.003      
+    ret.lateralTuning.lqr.dcGain = 0.003
 
     ret.centerToFront = ret.wheelbase * 0.4
 

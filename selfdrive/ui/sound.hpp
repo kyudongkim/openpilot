@@ -24,7 +24,7 @@ static std::map<AudibleAlert, std::pair<const char *, int>> sound_map {
   {AudibleAlert::CHIME_CALIBRATION1, {"../assets/sounds/calibration1.wav", 0}},
   {AudibleAlert::CHIME_CALIBRATION2, {"../assets/sounds/calibration2.wav", 0}},
   {AudibleAlert::CHIME_ENGAGE2, {"../assets/sounds/engagedt.wav", 0}},
-  {AudibleAlert::CHIME_DISENGAGE2, {"../assets/sounds/disengagedt.wav", 0}}  
+  {AudibleAlert::CHIME_DISENGAGE2, {"../assets/sounds/disengagedt.wav", 0}}
 };
 
 class Sound {

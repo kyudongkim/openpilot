@@ -126,7 +126,7 @@ static void draw_lead(UIState *s, const cereal::RadarState::LeadData::Reader &le
   float leadBuff = 40.;
   float d_rel = lead.getDRel();
   float v_rel = lead.getVRel();
-  float y_rel = lead.getYRel(); 
+  float y_rel = lead.getYRel();
   if (d_rel < leadBuff) {
     fillAlpha = 255*(1.0-(d_rel/leadBuff));
     if (v_rel < 0) {
@@ -245,8 +245,8 @@ static void ui_draw_track(UIState *s, bool is_mpc, track_vertices_data *pvd) {
   }
   nvgFillPaint(s->vg, track_bg);
   nvgFill(s->vg);
-} 
-  
+}
+
 static void draw_frame(UIState *s) {
   mat4 *out_mat;
   if (s->scene.frontview) {
@@ -349,7 +349,7 @@ static void ui_draw_vision_lanes(UIState *s) {
 // Draw all world space objects.
 static void ui_draw_world(UIState *s) {
   const UIScene *scene = &s->scene;
-  
+
   nvgSave(s->vg);
 
   // Don't draw on top of sidebar
@@ -419,7 +419,7 @@ static void ui_draw_vision_maxspeed(UIState *s) {
 
 static void ui_draw_vision_speed(UIState *s) {
   const Rect &viz_rect = s->scene.viz_rect;
-  const UIScene *scene = &s->scene; 
+  const UIScene *scene = &s->scene;
   float v_ego = s->scene.controls_state.getVEgo();
   float speed = v_ego * 2.2369363 + 0.5;
   if (s->is_metric){
@@ -496,7 +496,7 @@ static void ui_draw_vision_event(UIState *s) {
       }
       nvgFill(s->vg);
       img_wheel_alpha = 1.0f;
-    }  
+    }
     nvgSave(s->vg);
     nvgTranslate(s->vg,bg_wheel_x,(bg_wheel_y + (bdr_is*1.5)));
     nvgRotate(s->vg,-img_rotation);
@@ -654,7 +654,7 @@ static void bb_ui_draw_tpms(UIState *s) {
 
   // Draw Background
   if ((maxv - minv) > 3) {
-    ui_draw_rect(s->vg, viz_tpms_x, viz_tpms_y, viz_tpms_w, viz_tpms_h, COLOR_RED_ALPHA(80), 20);    
+    ui_draw_rect(s->vg, viz_tpms_x, viz_tpms_y, viz_tpms_w, viz_tpms_h, COLOR_RED_ALPHA(80), 20);
   } else {
     ui_draw_rect(s->vg, viz_tpms_x, viz_tpms_y, viz_tpms_w, viz_tpms_h, COLOR_BLACK_ALPHA(80), 20);
   }
@@ -707,7 +707,7 @@ static void bb_ui_draw_tpms(UIState *s) {
 static int bb_ui_draw_measure(UIState *s, const char* bb_value, const char* bb_label,
 			      int bb_x, int bb_y,
 			      NVGcolor bb_valueColor, NVGcolor bb_labelColor,
-			      int bb_valueFontSize, int bb_labelFontSize) 
+			      int bb_valueFontSize, int bb_labelFontSize)
 {
   nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
 
@@ -743,7 +743,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
       if((int)((scene->cpuTempAvg)) >= 70) {
         val_color = COLOR_ORANGE_ALPHA(200);
       }
-      //show Red if more than 80°C	  
+      //show Red if more than 80°
       if((int)((scene->cpuTempAvg)) >= 80) {
         val_color = COLOR_RED_ALPHA(200);
       }
@@ -764,7 +764,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
       if((int)(s->scene.lead_d_rel) < 15) {
         val_color = COLOR_ORANGE_ALPHA(200);
       }
-      //show Red if less than 5 meters	    
+      //show Red if less than 5 meters
       if((int)(s->scene.lead_d_rel) < 5) {
         val_color = COLOR_RED_ALPHA(200);
       }
@@ -811,7 +811,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
       if(((int)(s->scene.angleSteers) < -30) || ((int)(scene->angleSteers) > 30)) {
         val_color = COLOR_ORANGE_ALPHA(200);
       }
-      //show Red if more than 50 degrees	  
+      //show Red if more than 50 degrees
       if(((int)(s->scene.angleSteers) < -50) || ((int)(scene->angleSteers) > 50)) {
         val_color = COLOR_RED_ALPHA(200);
       }
@@ -833,7 +833,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
       if(((int)(s->scene.angleSteersDes) < -30) || ((int)(scene->angleSteersDes) > 30)) {
         val_color = COLOR_ORANGE_ALPHA(200);
       }
-      //show Red if more than 50 degrees	    
+      //show Red if more than 50 degrees
       if(((int)(s->scene.angleSteersDes) < -50) || ((int)(scene->angleSteersDes) > 50)) {
         val_color = COLOR_RED_ALPHA(200);
       }
@@ -864,7 +864,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
 			       value_fontSize, label_fontSize);
     bb_ry = bb_y + bb_h;
   }
-  
+
   //finally draw the frame
   bb_h += 20;
   nvgBeginPath(s->vg);
@@ -889,7 +889,7 @@ static void ui_draw_vision_footer(UIState *s) {
   ui_draw_vision_face(s);
   ui_draw_vision_brake(s);
   bb_ui_draw_UI(s);
-  bb_ui_draw_tpms(s); 
+  bb_ui_draw_tpms(s);
 }
 
 void ui_draw_vision_alert(UIState *s, cereal::ControlsState::AlertSize va_size, UIStatus va_color,
