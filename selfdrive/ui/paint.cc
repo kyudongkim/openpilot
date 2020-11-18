@@ -458,7 +458,7 @@ static void ui_draw_vision_speed(UIState *s) {
   nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
 
   snprintf(speed_str, sizeof(speed_str), "%d", (int)speed);
-  ui_draw_text(s->vg, viz_rect.centerX(), 240, speed_str, 96*2.5, COLOR_WHITE_ALPHA(200), s->font_sans_bold);
+  ui_draw_text(s->vg, viz_rect.centerX(), 240, speed_str, 100*2.5, COLOR_WHITE_ALPHA(200), s->font_sans_bold);
   ui_draw_text(s->vg, viz_rect.centerX(), 320, s->is_metric?"km/h":"mph", 36*2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
 }
 
@@ -637,15 +637,15 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w) 
   if (true) {
     char val_str[16];
     NVGcolor val_color = COLOR_GREEN_ALPHA(200);
-      //show Orange if more than 70°c
+      //show Orange if more than 70℃
       if((int)((scene->cpuTempAvg)) >= 70) {
         val_color = COLOR_ORANGE_ALPHA(200);
       }
-      //show Red if more than 80°c
+      //show Red if more than 80℃
       if((int)((scene->cpuTempAvg)) >= 80) {
         val_color = COLOR_RED_ALPHA(200);
       }
-    snprintf(val_str, sizeof(val_str), "%.0f°c", (round((scene->cpuTempAvg))));
+    snprintf(val_str, sizeof(val_str), "%.0f℃", (round((scene->cpuTempAvg))));
     bb_h += bb_ui_draw_measure(s, val_str, "CPU 온도", bb_rx, bb_ry, val_color, lab_color, value_fontSize, label_fontSize);
     bb_ry = bb_y + bb_h;
   }
@@ -655,15 +655,15 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w) 
     char val_str[16];
     NVGcolor val_color = COLOR_WHITE_ALPHA(200);
     if (s->scene.lead_status) {
-      //show Orange if less than 15 meters
+      //show Orange if less than 15ｍ
       if((int)(s->scene.lead_d_rel) < 15) {
         val_color = COLOR_ORANGE_ALPHA(200);
       }
-      //show Red if less than 5 meters
+      //show Red if less than 5ｍ
       if((int)(s->scene.lead_d_rel) < 5) {
         val_color = COLOR_RED_ALPHA(200);
       }
-      snprintf(val_str, sizeof(val_str), "%dm", (int)s->scene.lead_d_rel);
+      snprintf(val_str, sizeof(val_str), "%dｍ", (int)s->scene.lead_d_rel);
     } else {
        snprintf(val_str, sizeof(val_str), "-");
     }
@@ -684,7 +684,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w) 
       if((int)(s->scene.lead_v_rel) < -5) {
         val_color = COLOR_RED_ALPHA(200);
       }
-      snprintf(val_str, sizeof(val_str), "%dkm", (int)(s->scene.lead_v_rel * 3.6 + 0.5));
+      snprintf(val_str, sizeof(val_str), "%d㎞", (int)(s->scene.lead_v_rel * 3.6 + 0.5));
     } else {
        snprintf(val_str, sizeof(val_str), "-");
     }
@@ -696,16 +696,16 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w) 
   if (true) {
     char val_str[16];
     NVGcolor val_color = COLOR_GREEN_ALPHA(200);
-      //show Orange if more than 30°
+      //show Orange if more than 30 degree
       if(((int)(s->scene.angleSteers) < -30) || ((int)(scene->angleSteers) > 30)) {
         val_color = COLOR_ORANGE_ALPHA(200);
       }
-      //show Red if more than 50°
+      //show Red if more than 50 degree
       if(((int)(s->scene.angleSteers) < -50) || ((int)(scene->angleSteers) > 50)) {
         val_color = COLOR_RED_ALPHA(200);
       }
-      // steering is in °
-      snprintf(val_str, sizeof(val_str), "%.1f°",(s->scene.angleSteers));
+      // steering is in degree
+      snprintf(val_str, sizeof(val_str), "%.1f˚",(s->scene.angleSteers));
     bb_h += bb_ui_draw_measure(s, val_str, "핸들 조향각", bb_rx, bb_ry, val_color, lab_color, value_fontSize, label_fontSize);
     bb_ry = bb_y + bb_h;
   }
@@ -715,16 +715,16 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w) 
     char val_str[16];
     NVGcolor val_color = COLOR_GREEN_ALPHA(200);
     if (scene->controls_state.getEnabled()) {
-      //show Orange if more than 30°
+      //show Orange if more than 30 degree
       if(((int)(s->scene.angleSteersDes) < -30) || ((int)(scene->angleSteersDes) > 30)) {
         val_color = COLOR_ORANGE_ALPHA(200);
       }
-      //show Red if more than 50°
+      //show Red if more than 50 degree
       if(((int)(s->scene.angleSteersDes) < -50) || ((int)(scene->angleSteersDes) > 50)) {
         val_color = COLOR_RED_ALPHA(200);
       }
-      // steering is in °
-      snprintf(val_str, sizeof(val_str), "%.1f°",(s->scene.angleSteersDes));
+      // steering is in degree
+      snprintf(val_str, sizeof(val_str), "%.1f˚",(s->scene.angleSteersDes));
     } else {
        snprintf(val_str, sizeof(val_str), "-");
     }
