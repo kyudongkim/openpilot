@@ -45,6 +45,7 @@ prev_offroad_states: Dict[str, Tuple[bool, Optional[str]]] = {}
 LEON = False
 last_eon_fan_val = None
 
+prebuiltfile = '/data/openpilot/prebuilt'
 
 def get_thermal_config():
   # (tz, scale)
@@ -322,38 +323,38 @@ def thermald_thread():
     set_offroad_alert_if_changed("Offroad_InvalidTime", (not startup_conditions["time_valid"]))
 
     # Show update prompt
-    try:
-      last_update = datetime.datetime.fromisoformat(params.get("LastUpdateTime", encoding='utf8'))
-    except (TypeError, ValueError):
-      last_update = now
-    dt = now - last_update
+#    try:
+#      last_update = datetime.datetime.fromisoformat(params.get("LastUpdateTime", encoding='utf8'))
+#    except (TypeError, ValueError):
+#      last_update = now
+#    dt = now - last_update
 
-    update_failed_count = params.get("UpdateFailedCount")
-    update_failed_count = 0 if update_failed_count is None else int(update_failed_count)
-    last_update_exception = params.get("LastUpdateException", encoding='utf8')
+#    update_failed_count = params.get("UpdateFailedCount")
+#    update_failed_count = 0 if update_failed_count is None else int(update_failed_count)
+#    last_update_exception = params.get("LastUpdateException", encoding='utf8')
 
-    if update_failed_count > 15 and last_update_exception is not None:
-      if current_branch in ["release2", "dashcam"]:
-        extra_text = "Ensure the software is correctly installed"
-      else:
-        extra_text = last_update_exception
+#    if update_failed_count > 15 and last_update_exception is not None:
+#      if current_branch in ["release2", "dashcam"]:
+#        extra_text = "Ensure the software is correctly installed"
+#      else:
+#        extra_text = last_update_exception
 
-      set_offroad_alert_if_changed("Offroad_ConnectivityNeeded", False)
-      set_offroad_alert_if_changed("Offroad_ConnectivityNeededPrompt", False)
-      set_offroad_alert_if_changed("Offroad_UpdateFailed", True, extra_text=extra_text)
-    elif dt.days > DAYS_NO_CONNECTIVITY_MAX and update_failed_count > 1:
-      set_offroad_alert_if_changed("Offroad_UpdateFailed", False)
-      set_offroad_alert_if_changed("Offroad_ConnectivityNeededPrompt", False)
-      set_offroad_alert_if_changed("Offroad_ConnectivityNeeded", True)
-    elif dt.days > DAYS_NO_CONNECTIVITY_PROMPT:
-      remaining_time = str(max(DAYS_NO_CONNECTIVITY_MAX - dt.days, 0))
-      set_offroad_alert_if_changed("Offroad_UpdateFailed", False)
-      set_offroad_alert_if_changed("Offroad_ConnectivityNeeded", False)
-      set_offroad_alert_if_changed("Offroad_ConnectivityNeededPrompt", True, extra_text=f"{remaining_time} days.")
-    else:
-      set_offroad_alert_if_changed("Offroad_UpdateFailed", False)
-      set_offroad_alert_if_changed("Offroad_ConnectivityNeeded", False)
-      set_offroad_alert_if_changed("Offroad_ConnectivityNeededPrompt", False)
+#      set_offroad_alert_if_changed("Offroad_ConnectivityNeeded", False)
+#      set_offroad_alert_if_changed("Offroad_ConnectivityNeededPrompt", False)
+#      set_offroad_alert_if_changed("Offroad_UpdateFailed", True, extra_text=extra_text)
+#    elif dt.days > DAYS_NO_CONNECTIVITY_MAX and update_failed_count > 1:
+#      set_offroad_alert_if_changed("Offroad_UpdateFailed", False)
+#      set_offroad_alert_if_changed("Offroad_ConnectivityNeededPrompt", False)
+#      set_offroad_alert_if_changed("Offroad_ConnectivityNeeded", True)
+#    elif dt.days > DAYS_NO_CONNECTIVITY_PROMPT:
+#      remaining_time = str(max(DAYS_NO_CONNECTIVITY_MAX - dt.days, 0))
+#      set_offroad_alert_if_changed("Offroad_UpdateFailed", False)
+#      set_offroad_alert_if_changed("Offroad_ConnectivityNeeded", False)
+#      set_offroad_alert_if_changed("Offroad_ConnectivityNeededPrompt", True, extra_text=f"{remaining_time} days.")
+#    else:
+#      set_offroad_alert_if_changed("Offroad_UpdateFailed", False)
+#      set_offroad_alert_if_changed("Offroad_ConnectivityNeeded", False)
+#      set_offroad_alert_if_changed("Offroad_ConnectivityNeededPrompt", False)
 
     startup_conditions["not_uninstalling"] = not params.get("DoUninstall") == b"1"
     startup_conditions["accepted_terms"] = params.get("HasAcceptedTerms") == terms_version
@@ -394,6 +395,12 @@ def thermald_thread():
         off_ts = sec_since_boot()
         os.system('echo powersave > /sys/class/devfreq/soc:qcom,cpubw/governor')
 
+    prebuiltlet = Params().get('PutPrebuilt') == b'1'
+    if not os.path.isfile(prebuiltfile) and prebuiltlet:
+      os.system("cd /data/openpilot; touch prebuilt")
+    elif os.path.isfile(prebuiltfile) and not prebuiltlet:
+      os.system("cd /data/openpilot; rm -f prebuilt")            
+        
     # Offroad power monitoring
     pm.calculate(health)
     msg.thermal.offroadPowerUsage = pm.get_power_used()
