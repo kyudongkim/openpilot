@@ -430,7 +430,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   EventName.manualRestart: {
     ET.WARNING: Alert(
       "핸들을 잡아주세요",
-      "수동으로 재활성화하세요",
+      "수동으로 재활성하세요",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
   },
