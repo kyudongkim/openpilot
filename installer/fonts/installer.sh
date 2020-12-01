@@ -69,3 +69,7 @@ fi
 
 setprop persist.sys.locale $lang
 setprop persist.sys.local $lang
+
+echo =================================================================
+echo kor nanumgothic font install complete !
+echo =================================================================
