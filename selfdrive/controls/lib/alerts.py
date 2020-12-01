@@ -56,14 +56,15 @@ class Alert():
   def __gt__(self, alert2):
     return self.alert_priority > alert2.alert_priority
 
-# 메세지 한글화 : crwusiz ( Lee Jong Mun )
+# 메세지 한글화 : 로웰 ( crwusiz )
 ALERTS = [
   Alert(
       "turningIndicatorOn",
-      "핸들을 조작하세요",
-      "방향지시등 동작중",
+      "방향지시등 동작중에는 핸들을 잡아주세요",
+      "",
       AlertStatus.userPrompt, AlertSize.small,
       Priority.HIGH, VisualAlert.none, AudibleAlert.none, 0., 0., .1),
+
   Alert(
       "lkasButtonOff",
       "LKAS 버튼 꺼짐",
@@ -102,28 +103,28 @@ ALERTS = [
 
   Alert(
       "steerSaturated",
-      "핸들을 조작하세요",
+      "핸들을 잡아주세요",
       "핸들조향 제한을 초과함",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., 2., 3.),
 
   Alert(
       "steerTempUnavailable",
-      "핸들을 조작하세요",
+      "핸들을 잡아주세요",
       "핸들조향 일시적으로 사용불가",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.steerRequired, AudibleAlert.chimeWarning1, .4, 2., 3.),
 
   Alert(
       "steerTempUnavailableMute",
-      "핸들을 조작하세요",
+      "핸들을 잡아주세요",
       "핸들조향 일시적으로 사용불가",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .2, .2, .2),
 
   Alert(
       "preDriverDistracted",
-      "도로를 주시하세요 : 사용자 도로주시 불안",
+      "도로를 주시하세요 : 운전자 도로주시 불안",
       "",
       AlertStatus.normal, AlertSize.small,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=1),
@@ -131,35 +132,35 @@ ALERTS = [
   Alert(
       "promptDriverDistracted",
       "도로를 주시하세요",
-      "사용자 도로주시 불안",
+      "운전자 도로주시 불안",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarning2, .1, .1, .1),
 
   Alert(
       "driverDistracted",
       "즉시 해제하세요",
-      "사용자 주의 불안",
+      "운전자 주의 불안",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGH, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, .1, .1),
 
   Alert(
       "preDriverUnresponsive",
-      "핸들을 조작하세요 : 얼굴 인식 불가",
+      "핸들을 잡아주세요 : 얼굴 인식 불가",
       "",
       AlertStatus.normal, AlertSize.small,
       Priority.LOW, VisualAlert.steerRequired, AudibleAlert.none, .0, .1, .1, alert_rate=1),
 
   Alert(
       "promptDriverUnresponsive",
-      "핸들을 조작하세요",
-      "사용자가 응답하지않음",
+      "핸들을 잡아주세요",
+      "운전자가 응답하지않음",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarning2, .1, .1, .1),
 
   Alert(
       "driverUnresponsive",
       "즉시 해제하세요",
-      "사용자가 응답하지않음",
+      "운전자가 응답하지않음",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGH, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, .1, .1),
 
@@ -207,7 +208,7 @@ ALERTS = [
 
   Alert(
       "ethicalDilemma",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "도덕적인 딜레마 탐지",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGHEST, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, 1., 3., 3.),
@@ -221,7 +222,7 @@ ALERTS = [
 
   Alert(
       "manualRestart",
-      "핸들을 조작하세요",
+      "핸들을 잡아주세요",
       "수동으로 재활성화하세요",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
@@ -235,7 +236,7 @@ ALERTS = [
 
   Alert(
       "belowSteerSpeed",
-      "핸들을 조작하세요",
+      "핸들을 잡아주세요",
       "사용할수없는 자동조향 : 속도 ",
       AlertStatus.userPrompt, AlertSize.small,
       Priority.MID, VisualAlert.none, AudibleAlert.none, 0., 0.4, .3),
@@ -248,14 +249,14 @@ ALERTS = [
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .1, .1, .1),
   Alert(
       "preLaneChangeLeft",
-      "자동차선변경",
+      "차선을 변경합니다",
       "좌측차선의 차량을 확인하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
 
   Alert(
       "preLaneChangeRight",
-      "자동차선변경",
+      "차선을 변경합니다",
       "우측차선의 차량을 확인하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
@@ -283,14 +284,14 @@ ALERTS = [
   
   Alert(
       "preventLCA",
-      "핸들을 조작하세요",
+      "핸들을 잡아주세요",
       "차선변경 취소 , 차선이 안전하지않습니다",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGH, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .4, 3., 3.,),
 
   Alert(
       "posenetInvalid",
-      "핸들을 조작하세요",
+      "핸들을 잡아주세요",
       "비전 모델 출력 불확실",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.steerRequired, AudibleAlert.chimeWarning1, .4, 2., 3.),
@@ -306,7 +307,7 @@ ALERTS = [
   Alert(
       "dataNeededNoEntry",
       "오픈파일럿 사용불가",
-      "캘리브레이션에 필요한 데이터가 없음 , 주행후 재시도하세요",
+      "캘리브레이션 데이터가 없음 , 재부팅후 재시도하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.chimeError, .4, 0., 3.),
 
@@ -362,7 +363,7 @@ ALERTS = [
   Alert(
       "sensorDataInvalidNoEntry",
       "오픈파일럿 사용불가",
-      "EON센서에 데이터가 없음",
+      "장치 센서 오류",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.chimeError, .4, 2., 3.),
 
@@ -383,155 +384,155 @@ ALERTS = [
   # Cancellation alerts causing soft disabling
   Alert(
       "overheat",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "시스템 과열",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
 
   Alert(
       "wrongGear",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "기어가 [D] 상태가 아님",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
 
   Alert(
       "calibrationInvalid",
-      "핸들을 즉시 조작하세요",
-      "캘리브레이션 에러 : EON 위치변경 후 재시도하세요",
+      "핸들을 즉시 잡아주세요",
+      "캘리브레이션 에러 : 장치 위치변경 후 재시도하세요",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
 
   Alert(
       "calibrationIncomplete",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "캘리브레이션 진행중",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
 
   Alert(
       "doorOpen",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "도어 열림",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
 
   Alert(
       "seatbeltNotLatched",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "안전벨트 미채결",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
 
   Alert(
       "espDisabled",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "ESP 꺼짐",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
 
   Alert(
       "lowBattery",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "배터리 부족",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
 
   Alert(
       "commIssue",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "프로세스간 통신문제",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
 
   Alert(
       "radarCommIssue",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "레이더 통신문제",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
 
   Alert(
       "radarCanError",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "레이더 에러 : 차량을 다시 시작하세요",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
 
   Alert(
       "radarFault",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "레이더 에러 : 차량을 다시 시작하세요",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
 
   Alert(
       "lowMemory",
-      "핸들을 즉시 조작하세요",
-      "메모리 부족 : EON을 재부팅하세요",
+      "핸들을 즉시 잡아주세요",
+      "메모리 부족 : 장치를 재부팅하세요",
       AlertStatus.critical, AlertSize.full,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, .1, 2., 2.),
 
   # Cancellation alerts causing immediate disabling
   Alert(
       "controlsFailed",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "컨트롤 실패",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGHEST, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, 2.2, 3., 4.),
 
   Alert(
       "controlsMismatch",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "컨트롤 불일치",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGHEST, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, 2.2, 3., 4.),
 
   Alert(
       "canError",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "CAN 에러 : 연결상태를 확인하세요",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGHEST, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, 2.2, 3., 4.),
 
   Alert(
       "steerUnavailable",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "LKAS 에러 : 차량을 다시시작하세요",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGHEST, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, 2.2, 3., 4.),
 
   Alert(
       "brakeUnavailable",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "크루즈 에러 : 차량을 다시시작하세요",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGHEST, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, 2.2, 3., 4.),
 
   Alert(
       "gasUnavailable",
-      "핸들을 즉시 조작하세요",
-      "Gas 에러 : 차량을 다시시작하세요",
+      "핸들을 즉시 잡아주세요",
+      "가속페달 에러 : 차량을 다시시작하세요",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGHEST, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, 2.2, 3., 4.),
 
   Alert(
       "reverseGear",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "기어 [R] 상태",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGHEST, VisualAlert.none, AudibleAlert.none, 2.2, 3., 4.),
 
   Alert(
       "cruiseDisabled",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "크루즈 꺼짐",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGHEST, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, 2.2, 3., 4.),
 
   Alert(
       "plannerError",
-      "핸들을 즉시 조작하세요",
+      "핸들을 즉시 잡아주세요",
       "플래너 솔루션 에러",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGHEST, VisualAlert.steerRequired, AudibleAlert.chimeWarningRepeat, 2.2, 3., 4.),
@@ -569,7 +570,7 @@ ALERTS = [
   Alert(
       "calibrationInvalidNoEntry",
       "오픈파일럿 사용불가",
-      "캘리브레이션 에러 : EON 위치변경 및 캘리브레이션 재시도",
+      "장치 위치변경 및 캘리브레이션을 재시도하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.chimeError, .4, 2., 3.),
 
@@ -695,14 +696,14 @@ ALERTS = [
   Alert(
       "commIssueNoEntry",
       "오픈파일럿 사용불가",
-      "프로세스간 통신문제",
+      "장치 프로세스 통신오류",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.chimeDisengage, .4, 2., 3.),
 
   Alert(
       "radarCommIssueNoEntry",
       "오픈파일럿 사용불가",
-      "레이더 통신문제",
+      "차량 레이더 통신오류",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.chimeDisengage, .4, 2., 3.),
 
@@ -716,7 +717,7 @@ ALERTS = [
   Alert(
       "lowMemoryNoEntry",
       "오픈파일럿 사용불가",
-      "메모리 적음 : EON을 재부팅하세요",
+      "메모리 적음 : 장치를 재부팅하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.chimeDisengage, .4, 2., 3.),
 
@@ -772,22 +773,22 @@ ALERTS = [
 
   Alert(
       "sensorDataInvalidPermanent",
-      "EON센서에 데이터가 없음",
-      "EON을 재부팅하세요",
+      "장치 센서 오류",
+      "장치 점검후 재가동하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
 
   Alert(
       "soundsUnavailablePermanent",
       "스피커가 없습니다",
-      "EON을 재부팅하세요",
+      "장치를 재부팅하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
 
   Alert(
       "lowMemoryPermanent",
       "메모리 매우 낮음",
-      "EON을 재부팅하세요",
+      "장치를 재부팅하세요",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW_LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
 
@@ -808,7 +809,7 @@ ALERTS = [
   # offroad alerts
   Alert(
       "ldwPermanent",
-      "핸들을 조작하세요",
+      "핸들을 잡아주세요",
       "차선이탈 감지됨",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.steerRequired, AudibleAlert.chimePrompt, 1., 2., 3.),
